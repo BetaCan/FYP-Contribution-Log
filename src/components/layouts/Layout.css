@@ -1,0 +1,23 @@
+/* --------------------------------------------------------------------------------------- */
+/* Styling /////////////////////////////////////////////////////////////////////////////// */
+/* --------------------------------------------------------------------------------------- */
+
+div#root {
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+div#root div.centrepane {
+    background: whiteSmoke;
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+}
+
+div#root div.centrepane > main {
+    padding: 30px;
+    width: 100%;
+}
