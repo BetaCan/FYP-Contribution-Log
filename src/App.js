@@ -1,8 +1,16 @@
+import Layout from './components/layouts/Layout'
+import Home from './components/pages/Home'
+import SignIn from './components/pages/SignIn'
+import ContactUs from './components/pages/ContactUs'
+import PageNotFound from './components/pages/404'
+
+import './App.css'
+
 function App() {
     return (
-        <div>
-            <h1> Hello World </h1>
-        </div>
+        <Layout>
+            <Home />
+        </Layout>
     )
 }
 

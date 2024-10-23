@@ -1,0 +1,23 @@
+/* --------------------------------------------------------------------------------------- */
+/* Styling /////////////////////////////////////////////////////////////////////////////// */
+/* --------------------------------------------------------------------------------------- */
+
+nav {
+    display: flex;
+    overflow: hidden;
+    background-color: #edafb8;
+}
+
+nav div.navItem {
+    padding: 10px;
+}
+nav div.navItem:hover {
+    background-color: #f4cdd3;
+}
+nav div.navItem a {
+    color: white;
+    text-decoration: none;
+}
+nav div.navitem a.navSelected {
+    color: Black;
+}
