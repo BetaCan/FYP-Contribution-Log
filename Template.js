@@ -21,3 +21,20 @@ export default XYZ
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
+
+
+
+MY PROJECTS
+    // return (
+    //     <section>
+    //         <h1>My Projects</h1>
+    //         {!projects ? (
+    //             <p>{loadingMessage}</p>
+    //         ) : projects.length === 0 ? (
+    //             <p>No projects found</p>
+    //         ) : (
+    //             <p>Projects found</p>
+    //             // <ProjectsPanels projects={projects} />
+    //         )}
+    //     </section>
+    // )

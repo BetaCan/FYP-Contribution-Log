@@ -1,34 +1,19 @@
-import PropTypes from 'prop-types'
+// Card.js
+import React from 'react'
 import './Card.scss'
 
-Card.propTypes = {
-    onClick: PropTypes.func,
-    isParentHovering: PropTypes.bool,
-}
-
-export default function Card({ children, onClick, isParentHovering = false }) {
-    // Properties ----------------------------------
-    // Hooks ---------------------------------------
-    // Context -------------------------------------
-    // Methods -------------------------------------
-    // View ----------------------------------------
+export default function Card({ title, description, ...props }) {
     return (
-        <div className={'Card' + (isParentHovering ? ' Hovering' : '')} onClick={onClick}>
-            {children}
+        <div className='card'>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <div className='card-details'>
+                {Object.keys(props).map((key) => (
+                    <p key={key}>
+                        <strong>{key}:</strong> {props[key]}
+                    </p>
+                ))}
+            </div>
         </div>
     )
 }
-
-Container.propTypes = {
-    className: PropTypes.string,
-}
-
-function Container({ children, className = '' }) {
-    return <div className={'CardContainer ' + className}>{children}</div>
-}
-
-// -----------------------------------------
-// Compose Card Object /////////////////////
-// -----------------------------------------
-
-Card.Container = Container
