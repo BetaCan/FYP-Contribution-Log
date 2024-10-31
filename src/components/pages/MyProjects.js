@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import API from '../api/API.js'
+import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
@@ -30,13 +31,7 @@ export default function MyProjects() {
             ) : projects.length === 0 ? (
                 <p>No projects found</p>
             ) : (
-                projects.map((project) => (
-                    <div key={project.ProjectID}>
-                        <p>
-                            {project.ProjectID} {project.ProjectName} {project.ProjectRoleName}
-                        </p>
-                    </div>
-                ))
+                <ProjectsPanels projects={projects} />
             )}
         </section>
     )
