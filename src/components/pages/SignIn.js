@@ -12,6 +12,7 @@ function SignIn() {
     return (
         <div>
             <h1>SignIn</h1>
+            <p>Sign in to your account here</p>
         </div>
     )
 }

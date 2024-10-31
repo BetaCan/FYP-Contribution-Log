@@ -28,7 +28,7 @@ function XYZ() {
                     My Projects
                 </NavLink>
             </div>
-            <div className='navItem'>
+            <div className='navItem signIn'>
                 <NavLink to='/signin' className={getLinkStyle}>
                     SignIn
                 </NavLink>
