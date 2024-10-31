@@ -18,14 +18,19 @@ function XYZ() {
                     Home
                 </NavLink>
             </div>
+            {/* <div className='navItem'>
+                <NavLink to='/contact' className={getLinkStyle}>
+                    Contact Us
+                </NavLink>
+            </div> */}
             <div className='navItem'>
-                <NavLink to='/signin' className={getLinkStyle}>
-                    SignIn
+                <NavLink to='/myprojects' className={getLinkStyle}>
+                    My Projects
                 </NavLink>
             </div>
             <div className='navItem'>
-                <NavLink to='/contact' className={getLinkStyle}>
-                    Contact Us
+                <NavLink to='/signin' className={getLinkStyle}>
+                    SignIn
                 </NavLink>
             </div>
         </nav>
