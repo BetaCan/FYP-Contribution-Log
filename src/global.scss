@@ -19,22 +19,22 @@
 // -----------------------------------------------
 
 $Jet: #161616; // #323232;
-$Charcoal: lighten($Jet, 15%);
-$Red: #edafb8; // Rose
+$Charcoal: #2d2d2d; // Dark gray
+$Red: #e81123; // Red
 $LightRed: lighten($Red, 5%);
 $DarkRed: darken($Red, 20%);
-$Green: #29e7cd; // Cyan
+$Green: #00a300; // Green
 $DarkGreen: darken($Green, 10%);
-$Blue: #749ee3; // Little Boy Blue // 7C8DEB Cornflower Blue
+$Blue: #0078d7; // Blue
 $DarkBlue: darken($Blue, 10%);
-$Yellow: #ffdb58; // Mustard // #ead2ac; Sand
+$Yellow: #ffb900; // Yellow
 $DarkYellow: darken($Yellow, 10%);
-$Purple: #632290; // KSU Purple
-$DarkPurple: #230c33;
+$Purple: #5c2d91; // Purple
+$DarkPurple: darken($Purple, 20%);
 
-$ThemeColor: #004180;
+$ThemeColor: #0078d7; // Blue
 $ThemeColors: (
-    0: $Jet,
+    0: $Charcoal,
     1: $ThemeColor,
     2: lighten($ThemeColor, 10%),
     3: lighten($ThemeColor, 20%),
@@ -46,7 +46,8 @@ $ThemeColors: (
     9: lighten($ThemeColor, 71%),
     10: lighten($ThemeColor, 78%),
     11: lighten($ThemeColor, 84%),
-    12: White,
+    12: #ffffff,
+    // White
 );
 
 @function GetThemeColor($level) {

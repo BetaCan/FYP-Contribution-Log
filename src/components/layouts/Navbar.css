@@ -1,3 +1,5 @@
+@import '../Styles/colors.css';
+
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
@@ -5,7 +7,7 @@
 nav {
     display: flex;
     overflow: hidden;
-    background-color: #edafb8;
+    background-color: var(--windows-light-gray);
 }
 
 .navItem.signIn {
@@ -17,14 +19,14 @@ nav div.navItem {
 }
 
 nav div.navItem:hover {
-    background-color: #f4cdd3;
+    background-color: var(--windows-light-blue);
 }
 
 nav div.navItem a {
-    color: white;
+    color: var(--windows-black);
     text-decoration: none;
 }
 
 nav div.navItem a.navSelected {
-    color: black;
+    color: var(--windows-blue);
 }

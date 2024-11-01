@@ -1,3 +1,5 @@
+@import '../Styles/colors.css';
+
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
@@ -6,12 +8,12 @@ footer {
     height: 50px;
     display: grid;
     place-items: center;
-    border-top: 1px solid #b77de0;
-    background: #aa63da;
+    border-top: 1px solid var(--windows-dark-gray);
+    background: var(--windows-background);
 }
 
 footer a {
     font-size: 70%;
     text-decoration: none;
-    color: white;
+    color: var(--windows-blue);
 }

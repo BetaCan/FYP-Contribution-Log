@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import ToolTipDecorator from './ToolTipDecorator.js'
 import Icon from './Icons.js'
 import PropTypes from 'prop-types'

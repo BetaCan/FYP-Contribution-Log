@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import API from '../api/API.js'
-import Card from '../UI/Card.js'
+import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
@@ -32,16 +32,9 @@ export default function MyProjects() {
             ) : projects.length === 0 ? (
                 <p>No projects found</p>
             ) : (
-                <div className='project-cards'>
-                    {projects.map((project) => (
-                        <Card
-                            key={project.id}
-                            title={project.name}
-                            description={project.description}
-                            {...project}
-                        />
-                    ))}
-                </div>
+                <>
+                    <ProjectsPanels projects={projects} />
+                </>
             )}
         </section>
     )

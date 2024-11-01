@@ -1,0 +1,29 @@
+/* --------------------------------------------------------------------------------------- */
+/* Styling /////////////////////////////////////////////////////////////////////////////// */
+/* --------------------------------------------------------------------------------------- */
+
+.project-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 16px 0;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.card-details {
+    margin-top: 16px;
+    border-top: 1px solid #eee;
+    padding-top: 8px;
+}
