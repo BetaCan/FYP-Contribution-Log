@@ -6,7 +6,7 @@ import ContactUs from './components/pages/ContactUs'
 import MyProjects from './components/pages/MyProjects'
 import PageNotFound from './components/pages/404'
 
-import './App.css'
+import './App.scss'
 
 function App() {
     return (

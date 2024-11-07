@@ -2,7 +2,7 @@ import Header from './Header'
 import Navbar from './Navbar'
 import Footer from './Footer'
 
-import './Layout.css'
+import './Layout.scss'
 
 function Layout(props) {
     // Properties -------------------------------------------------------------------------------------------------

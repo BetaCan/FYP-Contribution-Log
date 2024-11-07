@@ -1,12 +1,12 @@
-@import '../Styles/colors.css';
+@import '../Styles/colors';
 
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
 
 header {
-    color: var(--windows-white);
-    background: var(--windows-light-blue);
+    color: $windows-white;
+    background: $windows-light-blue;
     display: flex;
 }
 
@@ -20,14 +20,14 @@ header a img {
 }
 
 header a h1 {
-    color: var(--windows-white);
+    color: $windows-white;
     margin-left: 10px;
     font-size: 200%;
 }
 
 header a:hover,
 header a:active {
-    color: var(--windows-light-blue);
+    color: $windows-light-blue;
 }
 
 header div.login {
