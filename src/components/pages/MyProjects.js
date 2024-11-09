@@ -4,7 +4,7 @@ import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
-    const loggedInUserID = 4
+    const loggedInUserID = 9
     const endpoint = `/projects/user/${loggedInUserID}`
 
     // State ------------------------------------------------------------------------------------------------------
