@@ -24,6 +24,11 @@ function XYZ() {
                 </NavLink>
             </div> */}
             <div className='navItem'>
+                <NavLink to='/projects' className={getLinkStyle}>
+                    Projects
+                </NavLink>
+            </div>
+            <div className='navItem'>
                 <NavLink to='/myprojects' className={getLinkStyle}>
                     My Projects
                 </NavLink>

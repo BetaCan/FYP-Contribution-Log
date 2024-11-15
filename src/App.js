@@ -4,6 +4,7 @@ import Home from './components/pages/Home'
 import SignIn from './components/pages/SignIn'
 import ContactUs from './components/pages/ContactUs'
 import MyProjects from './components/pages/MyProjects'
+import Projects from './components/pages/Projects'
 import PageNotFound from './components/pages/404'
 
 import './App.scss'
@@ -17,6 +18,7 @@ function App() {
                     <Route path='/signin' element={<SignIn />} />
                     <Route path='/contact' element={<ContactUs />} />
                     <Route path='/myprojects' element={<MyProjects />} />
+                    <Route path='/projects' element={<Projects />} />
                     <Route path='*' element={<PageNotFound />} />
                 </Routes>
             </Layout>
