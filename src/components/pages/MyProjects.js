@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../auth/useAuth.js'
 import API from '../api/API.js'
+import { ActionTray, ActionAdd } from '../UI/Actions.js'
+import ToolTipDecorator from '../UI/ToolTipDecorator.js'
 import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
+import ProjectForm from '../entities/projects/ProjectForm.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
@@ -10,6 +14,9 @@ export default function MyProjects() {
     // State ------------------------------------------------------------------------------------------------------
     const [projects, setProjects] = useState(null)
     const [loadingMessage, setLoadingMessage] = useState('Loading records...')
+
+    const [showAddProjectForm, setShowAddProjectForm] = useState(false)
+    const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
     // Context ----------------------------------------------------------------------------------------------------
 
@@ -22,6 +29,13 @@ export default function MyProjects() {
         apiCall(endpoint)
     }, [endpoint])
 
+    const handleAdd = () => {
+        setShowAddProjectForm(true)
+    }
+    const handleJoin = () => {
+        setShowJoinProjectForm(true)
+    }
+
     // View -------------------------------------------------------------------------------------------------------
 
     return (
@@ -32,10 +46,21 @@ export default function MyProjects() {
             ) : projects.length === 0 ? (
                 <p>No projects found</p>
             ) : (
-                <>
-                    <ProjectsPanels projects={projects} />
-                </>
+                <ProjectsPanels projects={projects} />
             )}
+
+            <p>&nbsp;</p>
+            <ActionTray>
+                <ToolTipDecorator message='Add new Project'>
+                    <ActionAdd showText onClick={handleAdd} buttonText='Add new Project' />
+                </ToolTipDecorator>
+                <ToolTipDecorator message='Join a Project'>
+                    <ActionAdd showText onClick={handleJoin} buttonText='Join a Project' />
+                </ToolTipDecorator>
+            </ActionTray>
+
+            {showAddProjectForm && <ProjectForm />}
+            {/* {showJoinProjectForm && <JoinProjectForm />} */}
         </section>
     )
 }
