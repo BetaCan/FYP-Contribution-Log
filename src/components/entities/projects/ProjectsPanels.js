@@ -12,7 +12,7 @@ export default function ProjectPanels({ projects }) {
 
     // View -------------------------------------------------------------------------------------------------------
     const displayableattributes = [
-        { key: 'ProjectRoleName', label: 'Role' },
+        { key: 'UserprojectRole', label: 'Role' },
         { key: 'ProjectDescription', label: 'Description' },
     ]
 
@@ -25,11 +25,7 @@ export default function ProjectPanels({ projects }) {
             <Panel.Container>
                 <h4>Active Projects</h4>
                 {activeProjects.map((project) => (
-                    <Panel
-                        key={project.ProjectID}
-                        title={`${project.ProjectID} ${project.ProjectName}`}
-                        level={1}
-                    >
+                    <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
                         <Panel.Static level={1}>
                             <ObjectTable object={project} attributes={displayableattributes} />
                         </Panel.Static>
@@ -40,11 +36,7 @@ export default function ProjectPanels({ projects }) {
             <Panel.Container>
                 <h4>In Progress Projects</h4>
                 {inProgressProjects.map((project) => (
-                    <Panel
-                        key={project.ProjectID}
-                        title={`${project.ProjectID} ${project.ProjectName}`}
-                        level={1}
-                    >
+                    <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
                         <Panel.Static level={1}>
                             <ObjectTable object={project} attributes={displayableattributes} />
                         </Panel.Static>
