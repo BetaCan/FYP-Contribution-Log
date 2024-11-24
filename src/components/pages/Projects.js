@@ -2,13 +2,10 @@ import { useState, useEffect } from 'react'
 import API from '../api/API.js'
 import { ActionTray, ActionAdd } from '../UI/Actions.js'
 import ToolTipDecorator from '../UI/ToolTipDecorator.js'
-import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
+import UPProjectsPanels from '../entities/projects/UPProjectsPanels.js'
 import ProjectForm from '../entities/projects/ProjectForm.js'
 
-export default function MyProjects() {
-    // Initialisation -------------------------------------------------------------------------------------------------
-    const loggedInUserID = 9
-
+export default function Projects() {
     // State ------------------------------------------------------------------------------------------------------
     const [projects, setProjects] = useState(null)
     const [loadingMessage, setLoadingMessage] = useState('Loading records...')
@@ -18,7 +15,7 @@ export default function MyProjects() {
 
     // Methods ----------------------------------------------------------------------------------------------------
     const getProjects = async () => {
-        const response = await API.get(`/projects/user/${loggedInUserID}`)
+        const response = await API.get('/projects')
         response.isSuccess ? setProjects(response.result) : setLoadingMessage(response.message)
     }
 
@@ -43,7 +40,7 @@ export default function MyProjects() {
     }
 
     const handleSubmit = async (project) => {
-        const response = await API.post(`/projects/user/${loggedInUserID}`, project)
+        const response = await API.post('/projects', project)
         if (response.isSuccess) {
             await getProjects() // Refresh the project list
             return true
@@ -54,7 +51,7 @@ export default function MyProjects() {
     // View -------------------------------------------------------------------------------------------------------
     return (
         <section>
-            <h1>My Projects</h1>
+            <h1>Projects</h1>
 
             <ActionTray>
                 <ToolTipDecorator message='Add new Project'>
@@ -75,7 +72,7 @@ export default function MyProjects() {
             ) : projects.length === 0 ? (
                 <p>No projects found</p>
             ) : (
-                <ProjectsPanels projects={projects} />
+                <UPProjectsPanels projects={projects} />
             )}
         </section>
     )
