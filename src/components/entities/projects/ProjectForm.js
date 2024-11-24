@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import API from '../../api/API.js'
 import FormItem from '../../UI/Form.js'
 import { ActionTray, ActionAdd, ActionClose } from '../../UI/Actions.js'
@@ -64,11 +64,13 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
     }
 
     const handleCancel = () => onDismiss()
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if (isValidProject(project)) {
-            onSubmit(project)
-            onDismiss()
+            const success = await onSubmit(project)
+            if (success) {
+                onDismiss()
+            }
         }
         setErrors({ ...errors })
     }
