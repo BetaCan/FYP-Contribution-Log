@@ -4,6 +4,7 @@ import { ActionTray, ActionAdd } from '../UI/Actions.js'
 import ToolTipDecorator from '../UI/ToolTipDecorator.js'
 import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
 import ProjectForm from '../entities/projects/ProjectForm.js'
+import JoinProjectForm from '../entities/projects/JoinProjectForm.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
@@ -42,8 +43,20 @@ export default function MyProjects() {
         setShowJoinProjectForm(false)
     }
 
-    const handleSubmit = async (project) => {
+    const handleSubmitAdd = async (project) => {
         const response = await API.post(`/projects/user/${loggedInUserID}`, project)
+        if (response.isSuccess) {
+            await getProjects() // Refresh the project list
+            return true
+        }
+        return false
+    }
+
+    const handleSubmitJoin = async (joinProject) => {
+        const response = await API.post(`/userprojects`, {
+            ...joinProject,
+            UserProjectUserID: loggedInUserID,
+        })
         if (response.isSuccess) {
             await getProjects() // Refresh the project list
             return true
@@ -66,9 +79,11 @@ export default function MyProjects() {
             </ActionTray>
 
             {showAddProjectForm && (
-                <ProjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmit} />
+                <ProjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmitAdd} />
             )}
-            {showJoinProjectForm && <p>{'<JoinProjectForm/>'} </p>}
+            {showJoinProjectForm && (
+                <JoinProjectForm onDismiss={handleDismissJoin} onSubmit={handleSubmitJoin} />
+            )}
 
             {!projects ? (
                 <p>{loadingMessage}</p>

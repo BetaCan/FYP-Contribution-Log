@@ -12,6 +12,7 @@ export default function ProjectPanels({ projects }) {
 
     // View -------------------------------------------------------------------------------------------------------
     const displayableattributes = [
+        { key: 'ProjectID', label: 'ID' },
         { key: 'UserprojectRole', label: 'Role' },
         { key: 'ProjectDescription', label: 'Description' },
     ]
