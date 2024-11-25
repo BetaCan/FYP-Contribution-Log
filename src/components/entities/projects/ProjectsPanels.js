@@ -48,11 +48,7 @@ export default function ProjectPanels({ projects }) {
             <Panel.Container>
                 <h4>Completed Projects</h4>
                 {completedProjects.map((project) => (
-                    <Panel
-                        key={project.ProjectID}
-                        title={`${project.ProjectID} ${project.ProjectName}`}
-                        level={1}
-                    >
+                    <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
                         <Panel.Static level={1}>
                             <ObjectTable object={project} attributes={displayableattributes} />
                         </Panel.Static>
