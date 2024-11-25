@@ -9,6 +9,7 @@ import JoinProjectForm from '../entities/projects/JoinProjectForm.js'
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
     const loggedInUserID = 9
+    const postProjectEndpoint = `/projects`
 
     // State ------------------------------------------------------------------------------------------------------
     const [projects, setProjects] = useState(null)
@@ -44,7 +45,7 @@ export default function MyProjects() {
     }
 
     const handleSubmitAdd = async (project) => {
-        const response = await API.post(`/projects/user/${loggedInUserID}`, project)
+        const response = await API.post(postProjectEndpoint, project)
         if (response.isSuccess) {
             await getProjects() // Refresh the project list
             return true
