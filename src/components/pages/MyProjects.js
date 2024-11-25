@@ -15,7 +15,7 @@ export default function MyProjects() {
     const endpoint = `/projects/user/${loggedInUserID}`
 
     // State ------------------------------------------------------------------------------------------------------
-    const [projects, setProject, loadingMessage, loadProjects] = useLoad(endpoint)
+    const [projects, , loadingMessage, loadProjects] = useLoad(endpoint)
     const [showAddProjectForm, setShowAddProjectForm] = useState(false)
     const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
@@ -74,10 +74,10 @@ export default function MyProjects() {
             </ActionTray>
 
             {showAddProjectForm && (
-                <ProjectForm onDismiss={handleDismissAdd} onSubmit={handleSubmitAdd} />
+                <ProjectForm onCancel={handleDismissAdd} onSubmit={handleSubmitAdd} />
             )}
             {showJoinProjectForm && (
-                <JoinProjectForm onDismiss={handleDismissJoin} onSubmit={handleSubmitJoin} />
+                <JoinProjectForm onCancel={handleDismissJoin} onSubmit={handleSubmitJoin} />
             )}
 
             {!projects ? (

@@ -2,9 +2,10 @@ import { useState } from 'react'
 import FormItem from '../../UI/Form.js'
 import { ActionTray, ActionAdd, ActionClose } from '../../UI/Actions.js'
 import ToolTipDecorator from '../../UI/ToolTipDecorator.js'
+import useLoad from '../../api/useLoad.js'
 
 const emptyProject = {
-    ProjectName: 'Test Name for a project',
+    ProjectName: 'Dummy Project',
     ProjectDescription: 'ipsum dolor sit amet, consectetur adipiscing elit',
     ProjectStartDate: '15/11/2024',
     ProjectEndDate: '26/11/2026',

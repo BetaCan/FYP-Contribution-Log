@@ -9,7 +9,7 @@ const emptyJoinProject = {
 }
 
 export default function JoinProjectForm({
-    onDismiss,
+    onCancel,
     onSubmit,
     initialJoinProject = emptyJoinProject,
 }) {
@@ -29,6 +29,9 @@ export default function JoinProjectForm({
     const [errors, setErrors] = useState(
         Object.keys(initialJoinProject).reduce((accum, key) => ({ ...accum, [key]: null }), {}),
     )
+
+    //const [role, loadingRolesMessage] = useLoad('/roles')
+    //const [projects, loadingProjectsMessage] = useLoad('/projects')
 
     // Handlers ----------------------------------------------------------------------------------------------------
     const handleChange = (event) => {
@@ -51,13 +54,13 @@ export default function JoinProjectForm({
         return isJoinProjectValid
     }
 
-    const handleCancel = () => onDismiss()
+    const handleCancel = () => onCancel()
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (isValidJoinProject(joinProject)) {
             const success = await onSubmit(joinProject)
             if (success) {
-                onDismiss()
+                onCancel()
             }
         }
         setErrors({ ...errors })
