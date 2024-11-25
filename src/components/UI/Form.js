@@ -1,6 +1,6 @@
 import { ActionTray, ActionAdd, ActionClose } from './Actions.js'
 import ToolTipDecorator from './ToolTipDecorator.js'
-import useLoad from '../api/useLoad.js'
+import { useState } from 'react'
 import './Form.scss'
 
 export default function Form({ children, onSubmit, onCancel }) {
@@ -51,7 +51,45 @@ function Item({ children, label, htmlFor, advice, error }) {
     )
 }
 
+function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel, onSubmit) {
+    // Intitilisation ------------------------------------------
+    // State ---------------------------------------------------
+    const [record, setRecord] = useState(initialRecord)
+    const [errors, setErrors] = useState(
+        Object.keys(initialRecord).reduce((accum, key) => ({ ...accum, [key]: null }), {}),
+    )
+    // Context -------------------------------------------------
+    // Handlers ------------------------------------------------
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        const newValue = conformance.includes(name) ? parseInt(value) : value
+        setRecord({ ...record, [name]: newValue })
+        setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] })
+    }
+
+    const isValidRecord = (record) => {
+        let isRecordValid = true
+        Object.keys(record).forEach((key) => {
+            if (isValid[key](record[key])) {
+                errors[key] = null
+            } else {
+                errors[key] = errorMessage[key]
+                isRecordValid = false
+            }
+        })
+        return isRecordValid
+    }
+
+    const handleSubmit = () => {
+        isValidRecord(record) && onSubmit(record) && onCancel()
+        setErrors({ ...errors })
+    }
+    // View ----------------------------------------------------
+    return [record, errors, handleChange, handleSubmit]
+}
+
 // ----------------------------------------
 //  Compose Form Object ////////////////////
 // ----------------------------------------
 Form.Item = Item
+Form.useForm = useForm

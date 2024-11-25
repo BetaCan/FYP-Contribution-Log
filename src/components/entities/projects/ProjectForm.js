@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Form from '../../UI/Form.js'
 
 const emptyProject = {
@@ -9,72 +8,48 @@ const emptyProject = {
     ProjectStatus: 'Active',
 }
 
-export default function ProjectForm({ onDismiss, onSubmit, initialProject = emptyProject }) {
+export default function ProjectForm({ onCancel, onSubmit, initialProject = emptyProject }) {
     // Initialisation -------------------------------------------------------------------------------------------------
-    const isValid = {
-        ProjectName: (name) => name.length > 5,
-        ProjectDescription: (description) => description.length > 20,
-        ProjectStartDate: (startDate) => {
-            const date = new Date(startDate)
-            return !isNaN(date.getTime())
+    const validation = {
+        isValid: {
+            ProjectName: (name) => name.length > 5,
+            ProjectDescription: (description) => description.length > 20,
+            ProjectStartDate: (startDate) => {
+                const date = new Date(startDate)
+                return !isNaN(date.getTime())
+            },
+            ProjectEndDate: (endDate) => {
+                const date = new Date(endDate)
+                return !isNaN(date.getTime())
+            },
+            ProjectStatus: (status) => ['In Progress', 'Completed', 'Active'].includes(status),
         },
-        ProjectEndDate: (endDate) => {
-            const date = new Date(endDate)
-            return !isNaN(date.getTime())
+
+        errorMessage: {
+            ProjectName: 'Invalid name - must be at least 5 characters',
+            ProjectDescription: 'Invalid description - must be at least 20 characters',
+            ProjectStartDate: 'Invalid start date - must be a valid date',
+            ProjectEndDate: 'Invalid end date - must be a valid date',
+            ProjectStatus: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
         },
-        ProjectStatus: (status) => ['In Progress', 'Completed', 'Active'].includes(status),
     }
 
-    const errorMessage = {
-        ProjectName: 'Invalid name - must be at least 5 characters',
-        ProjectDescription: 'Invalid description - must be at least 20 characters',
-        ProjectStartDate: 'Invalid start date - must be a valid date',
-        ProjectEndDate: 'Invalid end date - must be a valid date',
-        ProjectStatus: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
-    }
+    const conformance = []
 
     // State ------------------------------------------------------------------------------------------------------
-    const [project, setProject] = useState(initialProject)
-    const [errors, setErrors] = useState(
-        Object.keys(initialProject).reduce((accum, key) => ({ ...accum, [key]: null }), {}),
+    const [project, errors, handleChange, handleSubmit] = Form.useForm(
+        initialProject,
+        conformance,
+        validation,
+        onCancel,
+        onSubmit,
     )
 
     // Handlers ----------------------------------------------------------------------------------------------------
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        const newValue = value.trim()
-        setProject({ ...project, [name]: newValue })
-        setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] })
-    }
-
-    const isRecordValid = (project) => {
-        let isProjectValid = true
-        Object.keys(project).forEach((key) => {
-            if (isValid[key](project[key])) {
-                errors[key] = null
-            } else {
-                errors[key] = errorMessage[key]
-                isProjectValid = false
-            }
-        })
-        return isProjectValid
-    }
-
-    const handleCancel = () => onDismiss()
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        if (isRecordValid(project)) {
-            const success = await onSubmit(project)
-            if (success) {
-                onDismiss()
-            }
-        }
-        setErrors({ ...errors })
-    }
 
     // View -------------------------------------------------------------------------------------------------------
     return (
-        <Form onSubmit={handleSubmit} onCancel={handleCancel}>
+        <Form onSubmit={handleSubmit} onCancel={onCancel}>
             <Form.Item
                 label='Project name'
                 htmlFor='ProjectName'
