@@ -30,10 +30,12 @@ export default function MyProjects() {
 
     const handleAdd = () => {
         setShowAddProjectForm(true)
+        if (showJoinProjectForm) setShowJoinProjectForm(false)
     }
 
     const handleJoin = () => {
         setShowJoinProjectForm(true)
+        if (showAddProjectForm) setShowAddProjectForm(false)
     }
 
     const handleDismissAdd = () => {
