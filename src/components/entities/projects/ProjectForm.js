@@ -34,13 +34,7 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
         },
     }
 
-    const conformance = [
-        'ProjectName',
-        'ProjectDescription',
-        'ProjectStartDate',
-        'ProjectEndDate',
-        'ProjectStatus',
-    ]
+    const conformance = []
 
     // State ------------------------------------------------------------------------------------------------------
     const [project, errors, setErrors, handleChange] = Form.useForm(

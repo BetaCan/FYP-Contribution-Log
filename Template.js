@@ -81,3 +81,51 @@ MY PROJECTS
             )}
         </section>
     )
+
+
+
+
+
+
+
+
+
+    const handleAdd = () => {
+        setShowAddProjectForm(true)
+        if (showJoinProjectForm) setShowJoinProjectForm(false)
+    }
+
+    const handleJoin = () => {
+        setShowJoinProjectForm(true)
+        if (showAddProjectForm) setShowAddProjectForm(false)
+    }
+
+    const handleDismissAdd = () => {
+        setShowAddProjectForm(false)
+    }
+
+    const handleDismissJoin = () => {
+        setShowJoinProjectForm(false)
+    }
+
+    const handleSubmitAdd = async (project) => {
+        const response = await API.post(`/projects`, project)
+        if (response.isSuccess) {
+            await loadProjects() // Refresh the project list
+            return true
+        }
+        return false
+    }
+
+    const handleSubmitJoin = async (joinProject) => {
+        const response = await API.post(`/userprojects`, {
+            ...joinProject,
+            UserProjectUserID: loggedInUserID,
+        })
+        if (response.isSuccess) {
+            await loadProjects() // Refresh the project list
+            return true
+        }
+        return false
+    }
+
