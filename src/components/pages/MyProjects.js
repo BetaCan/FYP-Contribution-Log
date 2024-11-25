@@ -5,34 +5,28 @@ import ToolTipDecorator from '../UI/ToolTipDecorator.js'
 import ProjectsPanels from '../entities/projects/ProjectsPanels.js'
 import ProjectForm from '../entities/projects/ProjectForm.js'
 import JoinProjectForm from '../entities/projects/JoinProjectForm.js'
+import useLoad from '../api/useLoad.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
     const loggedInUserID = 9
+    const endpoint = `/projects/user/${loggedInUserID}`
 
     // State ------------------------------------------------------------------------------------------------------
-    const [projects, setProjects] = useState(null)
-    const [loadingMessage, setLoadingMessage] = useState('Loading records...')
+    const [projects, setProjects, loadingMessage, loadProjects] = useLoad(endpoint)
 
     const [showAddProjectForm, setShowAddProjectForm] = useState(false)
     const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
     // Methods ----------------------------------------------------------------------------------------------------
-    const getProjects = async () => {
-        const response = await API.get(`/projects/user/${loggedInUserID}`)
-        response.isSuccess ? setProjects(response.result) : setLoadingMessage(response.message)
-    }
-
-    useEffect(() => {
-        getProjects()
-    }, [])
-
     const handleAdd = () => {
         setShowAddProjectForm(true)
+        if (showJoinProjectForm) setShowJoinProjectForm(false)
     }
 
     const handleJoin = () => {
         setShowJoinProjectForm(true)
+        if (showAddProjectForm) setShowAddProjectForm(false)
     }
 
     const handleDismissAdd = () => {
@@ -46,7 +40,7 @@ export default function MyProjects() {
     const handleSubmitAdd = async (project) => {
         const response = await API.post(`/projects/user/${loggedInUserID}`, project)
         if (response.isSuccess) {
-            await getProjects() // Refresh the project list
+            await loadProjects() // Refresh the project list
             return true
         }
         return false
@@ -58,7 +52,7 @@ export default function MyProjects() {
             UserProjectUserID: loggedInUserID,
         })
         if (response.isSuccess) {
-            await getProjects() // Refresh the project list
+            await loadProjects() // Refresh the project list
             return true
         }
         return false

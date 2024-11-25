@@ -4,25 +4,19 @@ import { ActionTray, ActionAdd } from '../UI/Actions.js'
 import ToolTipDecorator from '../UI/ToolTipDecorator.js'
 import UPProjectsPanels from '../entities/projects/UPProjectsPanels.js'
 import ProjectForm from '../entities/projects/ProjectForm.js'
+import useLoad from '../api/useLoad.js'
 
 export default function Projects() {
+    // Initialisation -------------------------------------------------------------------------------------------------
+    const endpoint = '/projects'
+
     // State ------------------------------------------------------------------------------------------------------
-    const [projects, setProjects] = useState(null)
-    const [loadingMessage, setLoadingMessage] = useState('Loading records...')
+    const [projects, setProjects, loadingMessage, loadProjects] = useLoad(endpoint)
 
     const [showAddProjectForm, setShowAddProjectForm] = useState(false)
     const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
     // Methods ----------------------------------------------------------------------------------------------------
-    const getProjects = async () => {
-        const response = await API.get('/projects')
-        response.isSuccess ? setProjects(response.result) : setLoadingMessage(response.message)
-    }
-
-    useEffect(() => {
-        getProjects()
-    }, [])
-
     const handleAdd = () => {
         setShowAddProjectForm(true)
     }
@@ -42,7 +36,7 @@ export default function Projects() {
     const handleSubmit = async (project) => {
         const response = await API.post('/projects', project)
         if (response.isSuccess) {
-            await getProjects() // Refresh the project list
+            await loadProjects() // Refresh the project list
             return true
         }
         return false
