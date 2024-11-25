@@ -20,23 +20,10 @@ export default function MyProjects() {
     const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
     // Methods ----------------------------------------------------------------------------------------------------
-    const handleAdd = () => {
-        setShowAddProjectForm(true)
-        if (showJoinProjectForm) setShowJoinProjectForm(false)
-    }
-
-    const handleJoin = () => {
-        setShowJoinProjectForm(true)
-        if (showAddProjectForm) setShowAddProjectForm(false)
-    }
-
-    const handleDismissAdd = () => {
-        setShowAddProjectForm(false)
-    }
-
-    const handleDismissJoin = () => {
-        setShowJoinProjectForm(false)
-    }
+    const toggleAddForm = () => setShowAddProjectForm(!showAddProjectForm)
+    const toggleJoinForm = () => setShowJoinProjectForm(!showJoinProjectForm)
+    const CancelAddForm = () => setShowAddProjectForm(false)
+    const CancelJoinForm = () => setShowJoinProjectForm(false)
 
     const handleSubmitAdd = async (project) => {
         const response = await API.post(postProjectEndpoint, project)
@@ -66,18 +53,18 @@ export default function MyProjects() {
 
             <ActionTray>
                 <ToolTipDecorator message='Add new Project'>
-                    <ActionAdd showText onClick={handleAdd} buttonText='Add new Project' />
+                    <ActionAdd showText onClick={toggleAddForm} buttonText='Add new Project' />
                 </ToolTipDecorator>
                 <ToolTipDecorator message='Join a Project'>
-                    <ActionAdd showText onClick={handleJoin} buttonText='Join a Project' />
+                    <ActionAdd showText onClick={toggleJoinForm} buttonText='Join a Project' />
                 </ToolTipDecorator>
             </ActionTray>
 
             {showAddProjectForm && (
-                <ProjectForm onCancel={handleDismissAdd} onSubmit={handleSubmitAdd} />
+                <ProjectForm onCancel={CancelAddForm} onSubmit={handleSubmitAdd} />
             )}
             {showJoinProjectForm && (
-                <JoinProjectForm onCancel={handleDismissJoin} onSubmit={handleSubmitJoin} />
+                <JoinProjectForm onCancel={CancelJoinForm} onSubmit={handleSubmitJoin} />
             )}
 
             {!projects ? (
