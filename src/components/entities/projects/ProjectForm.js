@@ -1,14 +1,14 @@
 import Form from '../../UI/Form.js'
 
 const emptyProject = {
-    ProjectName: 'Test Name for a project',
+    ProjectName: 'DUmmy name :',
     ProjectDescription: 'ipsum dolor sit amet, consectetur adipiscing elit',
     ProjectStartDate: '15/11/2024',
     ProjectEndDate: '26/11/2026',
     ProjectStatus: 'Active',
 }
 
-export default function ProjectForm({ onDismiss, onSubmit, initialProject = emptyProject }) {
+export default function ProjectForm({ onCancel, onSubmit, initialProject = emptyProject }) {
     // Initialisation -------------------------------------------------------------------------------------------------
     const validation = {
         isValid: {
@@ -41,6 +41,8 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
         initialProject,
         conformance,
         validation,
+        onCancel,
+        onSubmit,
     )
 
     // Handlers ----------------------------------------------------------------------------------------------------
@@ -71,7 +73,7 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
 
     // View -------------------------------------------------------------------------------------------------------
     return (
-        <Form onSubmit={handleSubmit} onCancel={handleCancel}>
+        <Form onSubmit={handleSubmit} onCancel={onCancel}>
             <Form.Item
                 label='Project Name'
                 htmlFor='ProjectName'
