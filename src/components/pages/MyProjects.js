@@ -9,7 +9,7 @@ import useLoad from '../api/useLoad.js'
 
 export default function MyProjects() {
     // Initialisation -------------------------------------------------------------------------------------------------
-    const loggedInUserID = 9
+    const loggedInUserID = 4
     const postProjectEndpoint = `/projects`
     const postUserProjectEndpoint = `/userprojects`
     const endpoint = `/projects/user/${loggedInUserID}`

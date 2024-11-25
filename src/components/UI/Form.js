@@ -1,16 +1,44 @@
+import { ActionTray, ActionAdd, ActionClose } from './Actions.js'
+import ToolTipDecorator from './ToolTipDecorator.js'
+import useLoad from '../api/useLoad.js'
 import './Form.scss'
 
-export default function FormItem({ children, label, htmlFor, advice, error }) {
-    // Properties -------------------------------------------------------------------------------------------------
+export default function Form({ children, onSubmit, onCancel }) {
+    // Intitilisation ------------------------------------------
+    // Hooks ---------------------------------------------------
+    // State ---------------------------------------------------
+    // Context -------------------------------------------------
+    // Handlers ------------------------------------------------
+    const handleSubmit = () => {
+        onSubmit()
+    }
+    const handleCancel = () => {
+        onCancel()
+    }
+    // View ----------------------------------------------------
+    return (
+        <form className='BorderedForm'>
+            <div className='FormTray'>{children}</div>
 
-    // Hooks ------------------------------------------------------------------------------------------------------
+            <ActionTray>
+                <ToolTipDecorator message='Add a new project'>
+                    <ActionAdd showText onClick={handleSubmit} buttonText='Submit' />
+                </ToolTipDecorator>
+                <ToolTipDecorator message='close submission'>
+                    <ActionClose showText onClick={handleCancel} buttonText='Cancel' />
+                </ToolTipDecorator>
+            </ActionTray>
+        </form>
+    )
+}
 
-    // Context ----------------------------------------------------------------------------------------------------
-
-    // Methods ----------------------------------------------------------------------------------------------------
-
-    // View -------------------------------------------------------------------------------------------------------
-
+function Item({ children, label, htmlFor, advice, error }) {
+    // Intitilisation ------------------------------------------
+    // Hooks ---------------------------------------------------
+    // State ---------------------------------------------------
+    // Context -------------------------------------------------
+    // Handlers ------------------------------------------------
+    // View ----------------------------------------------------
     return (
         <div className='FormItem'>
             <label className='FormLabel' htmlFor={htmlFor}>
@@ -22,3 +50,8 @@ export default function FormItem({ children, label, htmlFor, advice, error }) {
         </div>
     )
 }
+
+// ----------------------------------------
+//  Compose Form Object ////////////////////
+// ----------------------------------------
+Form.Item = Item

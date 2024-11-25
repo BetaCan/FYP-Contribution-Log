@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import FormItem from '../../UI/Form.js'
-import { ActionTray, ActionAdd, ActionClose } from '../../UI/Actions.js'
-import ToolTipDecorator from '../../UI/ToolTipDecorator.js'
-import useLoad from '../../api/useLoad.js'
+import Form from '../../UI/Form.js'
 
 const emptyProject = {
     ProjectName: 'Dummy Project',
@@ -50,7 +47,7 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
         setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] })
     }
 
-    const isValidProject = (project) => {
+    const isRecordValid = (project) => {
         let isProjectValid = true
         Object.keys(project).forEach((key) => {
             if (isValid[key](project[key])) {
@@ -66,7 +63,7 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
     const handleCancel = () => onDismiss()
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (isValidProject(project)) {
+        if (isRecordValid(project)) {
             const success = await onSubmit(project)
             if (success) {
                 onDismiss()
@@ -77,8 +74,8 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
 
     // View -------------------------------------------------------------------------------------------------------
     return (
-        <form className='BorderedForm'>
-            <FormItem
+        <Form onSubmit={handleSubmit} onCancel={handleCancel}>
+            <Form.Item
                 label='Project name'
                 htmlFor='ProjectName'
                 advice='Please enter the name of the project'
@@ -90,9 +87,9 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
                     value={project.ProjectName}
                     onChange={handleChange}
                 />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem
+            <Form.Item
                 label='Project description'
                 htmlFor='ProjectDescription'
                 advice='Please enter the description of the project'
@@ -104,9 +101,9 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
                     value={project.ProjectDescription}
                     onChange={handleChange}
                 />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem
+            <Form.Item
                 label='Project start date'
                 htmlFor='ProjectStartDate'
                 advice='Please enter the the start date of the project'
@@ -118,9 +115,9 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
                     value={project.ProjectStartDate}
                     onChange={handleChange}
                 />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem
+            <Form.Item
                 label='Project end date'
                 htmlFor='ProjectEndDate'
                 advice='Please enter the the End date of the project'
@@ -132,9 +129,9 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
                     value={project.ProjectEndDate}
                     onChange={handleChange}
                 />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem
+            <Form.Item
                 label='Project status'
                 htmlFor='ProjectStatus'
                 advice='choose whether the project is In Progress, Completed, or Active'
@@ -153,16 +150,7 @@ export default function ProjectForm({ onDismiss, onSubmit, initialProject = empt
                         <option key={status}> {status}</option>
                     ))}
                 </select>
-            </FormItem>
-
-            <ActionTray>
-                <ToolTipDecorator message='Add a new project'>
-                    <ActionAdd showText onClick={handleSubmit} buttonText='Submit' />
-                </ToolTipDecorator>
-                <ToolTipDecorator message='close submission'>
-                    <ActionClose showText onClick={handleCancel} buttonText='Cancel' />
-                </ToolTipDecorator>
-            </ActionTray>
-        </form>
+            </Form.Item>
+        </Form>
     )
 }
