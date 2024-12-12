@@ -35,9 +35,10 @@ export default function MyProjects() {
     const response = await API.post(postProjectEndpoint, project)
     if (response.isSuccess) {
       await loadProjects() // Refresh the project list
-      return true
+      setShowAddProjectForm(false) // Close the form after submission
+    } else {
+      console.error("Failed to add project:", response.message)
     }
-    return false
   }
 
   const handleSubmitJoin = async (joinProject) => {
@@ -47,9 +48,10 @@ export default function MyProjects() {
     })
     if (response.isSuccess) {
       await loadProjects() // Refresh the project list
-      return true
+      setShowJoinProjectForm(false) // Close the form after submission
+    } else {
+      console.error("Failed to join project:", response.message)
     }
-    return false
   }
 
   // View -------------------------------------------------------------------------------------------------------

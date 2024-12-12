@@ -9,7 +9,7 @@ import { useState } from "react"
 export default function ProjectPanels({ projects, reloadProjects }) {
   // Initialisation  -------------------------------------------------------------------------------------------------
   const putProjectsEndpoint = `/projects`
-
+  const deleteProjectsEndpoint = `/projects`
   // State ------------------------------------------------------------------------------------------------------
   const [selectedForm, setSelectedForm] = useState(0)
 
@@ -19,7 +19,12 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   const handleModify = (id) => {
     setSelectedForm(id === selectedForm ? 0 : id)
   }
-  const handleDelete = () => {}
+
+  const handleDelete = async (id) => {
+    const response = await API.delete(`${deleteProjectsEndpoint}/${id}`)
+    response.isSuccess && reloadProjects()
+  }
+
   const handleSubmit = async (project) => {
     const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project)
     if (response.isSuccess) {
@@ -29,6 +34,7 @@ export default function ProjectPanels({ projects, reloadProjects }) {
       console.error("Failed to update project:", response.message)
     }
   }
+
   const handleCancel = () => {
     setSelectedForm(0)
   }
@@ -63,7 +69,11 @@ export default function ProjectPanels({ projects, reloadProjects }) {
                 />
               </ToolTipDecorator>
               <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
-                <ActionDelete showText onClick={handleDelete} buttonText="Delete Project" />
+                <ActionDelete
+                  showText
+                  onClick={() => handleDelete(project.ProjectID)}
+                  buttonText="Delete Project"
+                />
               </ToolTipDecorator>
             </ActionTray>
 
