@@ -119,6 +119,31 @@ export default function ProjectPanels({ projects, reloadProjects }) {
             <Panel.Static level={1}>
               <ObjectTable object={project} attributes={displayableattributes} />
             </Panel.Static>
+
+            <Action.Tray>
+              <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
+                <Action.Modify
+                  showText
+                  onClick={() => handleModify(project.ProjectID)}
+                  buttonText="Modify Project"
+                />
+              </ToolTipDecorator>
+              <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
+                <Action.Delete
+                  showText
+                  onClick={() => showDeleteModal(project.ProjectID)}
+                  buttonText="Delete Project"
+                />
+              </ToolTipDecorator>
+            </Action.Tray>
+
+            {selectedForm === project.ProjectID && (
+              <ProjectForm
+                onCancel={handleCancel}
+                onSubmit={handleSubmit}
+                initialProject={project}
+              />
+            )}
           </Panel>
         ))}
       </Panel.Container>
@@ -130,6 +155,31 @@ export default function ProjectPanels({ projects, reloadProjects }) {
             <Panel.Static level={1}>
               <ObjectTable object={project} attributes={displayableattributes} />
             </Panel.Static>
+
+            <Action.Tray>
+              <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
+                <Action.Modify
+                  showText
+                  onClick={() => handleModify(project.ProjectID)}
+                  buttonText="Modify Project"
+                />
+              </ToolTipDecorator>
+              <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
+                <Action.Delete
+                  showText
+                  onClick={() => showDeleteModal(project.ProjectID)}
+                  buttonText="Delete Project"
+                />
+              </ToolTipDecorator>
+            </Action.Tray>
+
+            {selectedForm === project.ProjectID && (
+              <ProjectForm
+                onCancel={handleCancel}
+                onSubmit={handleSubmit}
+                initialProject={project}
+              />
+            )}
           </Panel>
         ))}
       </Panel.Container>
