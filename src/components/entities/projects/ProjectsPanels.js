@@ -1,4 +1,5 @@
 import API from "../../api/API.js"
+import Modal from "../../UI/Modal.js"
 import Panel from "../../UI/Panel.js"
 import ObjectTable from "../../UI/ObjectTable.js"
 import { ActionTray, ActionModify, ActionDelete } from "../../UI/Actions.js"
@@ -14,6 +15,7 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   const [selectedForm, setSelectedForm] = useState(0)
 
   // Context ----------------------------------------------------------------------------------------------------
+  const { handleModal } = Modal.useModal()
 
   // Methods ----------------------------------------------------------------------------------------------------
   const handleModify = (id) => {

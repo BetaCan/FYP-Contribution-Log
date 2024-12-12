@@ -1,0 +1,76 @@
+// -----------------------------------------------
+// Imports ///////////////////////////////////////
+// -----------------------------------------------
+@import "../../global.scss";
+
+// -----------------------------------------------
+// Styling ///////////////////////////////////////
+// -----------------------------------------------
+
+div.ModalOverlay {
+  /* Appearance */
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(60, 60, 60, 0.7);
+
+  /* Positioning */
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+main.ModalPane {
+  /* Positioning */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  header {
+    /* Appearance */
+    width: 100%;
+    height: 50px;
+    padding: 10px 50px;
+    color: White;
+    font-size: 100%;
+    border-radius: 5px 5px 0 0;
+    background-color: $Green;
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main.ModalContent {
+    /* Appearance */
+    width: 100%;
+    padding: 10px;
+    color: Black;
+    font-size: 100%;
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > p {
+      text-align: center;
+    }
+  }
+
+  div.ModalActions {
+    /* Layout */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+
+    /* Position */
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+  }
+}

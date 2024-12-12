@@ -1,3 +1,4 @@
+import Modal from "../UI/Modal.js"
 import Header from "./Header"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
@@ -16,12 +17,14 @@ function Layout(props) {
   // View -------------------------------------------------------------------------------------------------------
 
   return (
-    <div className="centrepane">
-      <Header />
-      <Navbar />
-      <main>{props.children}</main>
-      <Footer />
-    </div>
+    <Modal.Provider>
+      <div className="centrepane">
+        <Header />
+        <Navbar />
+        <main>{props.children}</main>
+        <Footer />
+      </div>
+    </Modal.Provider>
   )
 }
 
