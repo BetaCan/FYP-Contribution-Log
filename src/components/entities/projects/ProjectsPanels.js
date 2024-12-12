@@ -8,7 +8,7 @@ import { useState } from "react"
 
 export default function ProjectPanels({ projects, reloadProjects }) {
   // Initialisation  -------------------------------------------------------------------------------------------------
-  const putProjectEndpoint = `/projects`
+  const putProjectsEndpoint = `/projects`
 
   // State ------------------------------------------------------------------------------------------------------
   const [selectedForm, setSelectedForm] = useState(0)
@@ -21,10 +21,12 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   }
   const handleDelete = () => {}
   const handleSubmit = async (project) => {
-    const response = await API.post(`${putProjectEndpoint}/${project.ProjectID}`, project)
+    const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project)
     if (response.isSuccess) {
       setSelectedForm(0)
       reloadProjects()
+    } else {
+      console.error("Failed to update project:", response.message)
     }
   }
   const handleCancel = () => {

@@ -51,21 +51,12 @@ function Item({ children, label, htmlFor, advice, error }) {
   )
 }
 
-function useForm(
-  initialRecord,
-  conformance,
-  { isValid, errorMessage },
-  onCancel,
-  onSubmit
-) {
+function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel, onSubmit) {
   // Intitilisation ------------------------------------------
   // State ---------------------------------------------------
   const [record, setRecord] = useState(initialRecord)
   const [errors, setErrors] = useState(
-    Object.keys(initialRecord).reduce(
-      (accum, key) => ({ ...accum, [key]: null }),
-      {}
-    )
+    Object.keys(initialRecord).reduce((accum, key) => ({ ...accum, [key]: null }), {})
   )
   // Context -------------------------------------------------
   // Handlers ------------------------------------------------
@@ -73,10 +64,7 @@ function useForm(
     const { name, value } = event.target
     const newValue = conformance.includes(name) ? parseInt(value) : value
     setRecord({ ...record, [name]: newValue })
-    setErrors({
-      ...errors,
-      [name]: isValid[name](newValue) ? null : errorMessage[name],
-    })
+    setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] })
   }
 
   const isValidRecord = (record) => {
