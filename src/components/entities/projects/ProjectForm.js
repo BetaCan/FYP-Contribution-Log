@@ -8,11 +8,7 @@ const emptyProject = {
   ProjectStatus: "Active",
 }
 
-export default function ProjectForm({
-  onCancel,
-  onSubmit,
-  initialProject = emptyProject,
-}) {
+export default function ProjectForm({ onCancel, onSubmit, initialProject = emptyProject }) {
   // Initialisation -------------------------------------------------------------------------------------------------
   const validation = {
     isValid: {
@@ -26,18 +22,15 @@ export default function ProjectForm({
         const date = new Date(endDate)
         return !isNaN(date.getTime())
       },
-      ProjectStatus: (status) =>
-        ["In Progress", "Completed", "Active"].includes(status),
+      ProjectStatus: (status) => ["In Progress", "Completed", "Active"].includes(status),
     },
 
     errorMessage: {
       ProjectName: "Invalid name - must be at least 5 characters",
-      ProjectDescription:
-        "Invalid description - must be at least 20 characters",
+      ProjectDescription: "Invalid description - must be at least 20 characters",
       ProjectStartDate: "Invalid start date - must be a valid date",
       ProjectEndDate: "Invalid end date - must be a valid date",
-      ProjectStatus:
-        "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
+      ProjectStatus: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
     },
   }
 
@@ -63,12 +56,7 @@ export default function ProjectForm({
         advice="Please enter the name of the project"
         error={errors.ProjectName}
       >
-        <input
-          type="text"
-          name="ProjectName"
-          value={project.ProjectName}
-          onChange={handleChange}
-        />
+        <input type="text" name="ProjectName" value={project.ProjectName} onChange={handleChange} />
       </Form.Item>
 
       <Form.Item

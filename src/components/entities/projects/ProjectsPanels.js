@@ -1,3 +1,4 @@
+import API from "../../api/API.js"
 import Panel from "../../UI/Panel.js"
 import ObjectTable from "../../UI/ObjectTable.js"
 import { ActionTray, ActionModify, ActionDelete } from "../../UI/Actions.js"
@@ -5,11 +6,13 @@ import ToolTipDecorator from "../../UI/ToolTipDecorator.js"
 import ProjectForm from "./ProjectForm.js"
 import { useState } from "react"
 
-export default function ProjectPanels({ projects }) {
+export default function ProjectPanels({ projects, reloadProjects }) {
   // Initialisation  -------------------------------------------------------------------------------------------------
+  const putProjectEndpoint = `/projects`
 
   // State ------------------------------------------------------------------------------------------------------
   const [selectedForm, setSelectedForm] = useState(0)
+
   // Context ----------------------------------------------------------------------------------------------------
 
   // Methods ----------------------------------------------------------------------------------------------------
@@ -17,7 +20,13 @@ export default function ProjectPanels({ projects }) {
     setSelectedForm(id === selectedForm ? 0 : id)
   }
   const handleDelete = () => {}
-  const handleSubmit = () => {}
+  const handleSubmit = async (project) => {
+    const response = await API.post(`${putProjectEndpoint}/${project.ProjectID}`, project)
+    if (response.isSuccess) {
+      setSelectedForm(0)
+      reloadProjects()
+    }
+  }
   const handleCancel = () => {
     setSelectedForm(0)
   }

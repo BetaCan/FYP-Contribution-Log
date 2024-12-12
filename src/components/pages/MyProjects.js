@@ -10,12 +10,12 @@ import useLoad from "../api/useLoad.js"
 export default function MyProjects() {
   // Initialisation -------------------------------------------------------------------------------------------------
   const loggedInUserID = 4
+  const getProjectsEndpoint = `/projects/user/${loggedInUserID}`
   const postProjectEndpoint = `/projects`
   const postUserProjectEndpoint = `/userprojects`
-  const endpoint = `/projects/user/${loggedInUserID}`
 
   // State ------------------------------------------------------------------------------------------------------
-  const [projects, , loadingMessage, loadProjects] = useLoad(endpoint)
+  const [projects, , loadingMessage, loadProjects] = useLoad(getProjectsEndpoint)
   const [showAddProjectForm, setShowAddProjectForm] = useState(false)
   const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
 
@@ -76,7 +76,10 @@ export default function MyProjects() {
       ) : projects.length === 0 ? (
         <p>No projects found</p>
       ) : (
-        <ProjectsPanels projects={projects} />
+        <ProjectsPanels
+          projects={projects}
+          reloadProjects={() => loadProjects(getProjectsEndpoint)}
+        />
       )}
     </section>
   )
