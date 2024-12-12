@@ -3,33 +3,33 @@ import Icon from "./Icons.js"
 import "./Actions.scss"
 
 // -----------------------------------------
-// Action Tray /////////////////////////////
-// -----------------------------------------
-
-ActionTray.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-}
-
-export function ActionTray({ children }) {
-  return <div className="ActionTray">{children}</div>
-}
-
-// -----------------------------------------
 // Action Button ///////////////////////////
 // -----------------------------------------
 
-ActionButton.propTypes = {
+Action.propTypes = {
   onClick: PropTypes.func.isRequired,
   showText: PropTypes.bool,
   buttonText: PropTypes.string.isRequired,
 }
 
-function ActionButton({ children, onClick, showText, buttonText }) {
+export default function Action({ children, onClick, showText, buttonText }) {
   return (
     <button className="Action" onClick={onClick}>
       {children} {showText && <p>{buttonText}</p>}
     </button>
   )
+}
+
+// -----------------------------------------
+// Action Tray /////////////////////////////
+// -----------------------------------------
+
+Tray.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+}
+
+export function Tray({ children }) {
+  return <div className="ActionTray">{children}</div>
 }
 
 // -----------------------------------------
@@ -39,104 +39,177 @@ function ActionButton({ children, onClick, showText, buttonText }) {
 const ActionPropTypes = {
   onClick: PropTypes.func.isRequired,
   showText: PropTypes.bool,
+  buttonText: PropTypes.string,
 }
 
-ActionAdd.propTypes = ActionPropTypes
+Add.propTypes = ActionPropTypes
 
-export function ActionAdd({ onClick, showText = false, buttonText = null }) {
+export function Add({ onClick, showText = false, buttonText = "Add" }) {
   return (
-    <ActionButton buttonText={buttonText || "Add"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Plus />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionClose.propTypes = ActionPropTypes
+Cancel.propTypes = ActionPropTypes
 
-export function ActionClose({ onClick, showText = false, buttonText = null }) {
+export function Cancel({ onClick, showText = false, buttonText = "Cancel" }) {
   return (
-    <ActionButton buttonText={buttonText || "Close"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Cross />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionDelete.propTypes = ActionPropTypes
+Collapse.propTypes = ActionPropTypes
 
-export function ActionDelete({ onClick, showText = false, buttonText = null }) {
+export function Collapse({ onClick, showText = false, buttonText = "Collapse" }) {
   return (
-    <ActionButton buttonText={buttonText || "Delete"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Collapse />
+    </Action>
+  )
+}
+
+Close.propTypes = ActionPropTypes
+
+export function Close({ onClick, showText = false, buttonText = "Close" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
+}
+
+Delete.propTypes = ActionPropTypes
+
+export function Delete({ onClick, showText = false, buttonText = "Delete" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Trash />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionFavourites.propTypes = ActionPropTypes
+Dismiss.propTypes = ActionPropTypes
 
-export function ActionFavourites({ onClick, showText = false, buttonText = null }) {
+export function Dismiss({ onClick, showText = false, buttonText = "Dismiss" }) {
   return (
-    <ActionButton buttonText={buttonText || "Favourite"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
+}
+
+Expand.propTypes = ActionPropTypes
+
+export function Expand({ onClick, showText = false, buttonText = "Expand" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Expand />
+    </Action>
+  )
+}
+
+Favourites.propTypes = ActionPropTypes
+
+export function Favourites({ onClick, showText = false, buttonText = "List favourites" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.RedHeart />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionListAll.propTypes = ActionPropTypes
+ListAll.propTypes = ActionPropTypes
 
-export function ActionListAll({ onClick, showText = false, buttonText = null }) {
+export function ListAll({ onClick, showText = false, buttonText = "List all" }) {
   return (
-    <ActionButton buttonText={buttonText || "List"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.List />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionModify.propTypes = ActionPropTypes
+Modify.propTypes = ActionPropTypes
 
-export function ActionModify({ onClick, showText = false, buttonText = null }) {
+export function Modify({ onClick, showText = false, buttonText = "Modify" }) {
   return (
-    <ActionButton buttonText={buttonText || "Modify"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Pen />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionNo.propTypes = ActionPropTypes
+No.propTypes = ActionPropTypes
 
-export function ActionNo({ onClick, showText = false, buttonText = null }) {
+export function No({ onClick, showText = false, buttonText = "No" }) {
   return (
-    <ActionButton buttonText={buttonText || "No"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Cross />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionSubscribe.propTypes = ActionPropTypes
+Submit.propTypes = ActionPropTypes
 
-export function ActionSubscribe({ onClick, showText = false, buttonText = null }) {
+export function Submit({ onClick, showText = false, buttonText = "Submit" }) {
   return (
-    <ActionButton buttonText={buttonText || "Subscribe"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Tick />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionYes.propTypes = ActionPropTypes
+Subscribe.propTypes = ActionPropTypes
 
-export function ActionYes({ onClick, showText = false, buttonText = null }) {
+export function Subscribe({ onClick, showText = false, buttonText = "Subscribe" }) {
   return (
-    <ActionButton buttonText={buttonText || "Yes"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Tick />
-    </ActionButton>
+    </Action>
   )
 }
 
-ActionUnsubscribe.propTypes = ActionPropTypes
+Yes.propTypes = ActionPropTypes
 
-export function ActionUnsubscribe({ onClick, showText = false, buttonText = null }) {
+export function Yes({ onClick, showText = false, buttonText = "Yes" }) {
   return (
-    <ActionButton buttonText={buttonText || "Unsubscribe"} onClick={onClick} showText={showText}>
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Tick />
+    </Action>
+  )
+}
+
+Unsubscribe.propTypes = ActionPropTypes
+
+export function Unsubscribe({ onClick, showText = false, buttonText = "Unsubscribe" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
       <Icon.Cross />
-    </ActionButton>
+    </Action>
   )
 }
+
+// -----------------------------------------
+// Compose Action Object ///////////////////
+// -----------------------------------------
+
+Action.Tray = Tray
+
+Action.Add = Add
+Action.Cancel = Cancel
+Action.Close = Close
+Action.Collapse = Collapse
+Action.Delete = Delete
+Action.Dismiss = Dismiss
+Action.Expand = Expand
+Action.Favourites = Favourites
+Action.ListAll = ListAll
+Action.Modify = Modify
+Action.No = No
+Action.Submit = Submit
+Action.Subscribe = Subscribe
+Action.Yes = Yes
+Action.Unsubscribe = Unsubscribe

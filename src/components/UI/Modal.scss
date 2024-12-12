@@ -10,18 +10,21 @@
 div.ModalOverlay {
   /* Appearance */
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(60, 60, 60, 0.7);
 
   /* Positioning */
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   position: fixed;
 }
 
 main.ModalPane {
+  /* Appearance */
+  background-color: White;
+  border-radius: 5px;
+
   /* Positioning */
   position: fixed;
   top: 50%;

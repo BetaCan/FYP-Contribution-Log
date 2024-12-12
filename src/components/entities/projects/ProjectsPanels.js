@@ -2,7 +2,7 @@ import API from "../../api/API.js"
 import Modal from "../../UI/Modal.js"
 import Panel from "../../UI/Panel.js"
 import ObjectTable from "../../UI/ObjectTable.js"
-import { ActionTray, ActionModify, ActionDelete } from "../../UI/Actions.js"
+import Action from "../../UI/Actions.js"
 import ToolTipDecorator from "../../UI/ToolTipDecorator.js"
 import ProjectForm from "./ProjectForm.js"
 import { useState } from "react"
@@ -23,8 +23,9 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   }
 
   const handleDelete = async (id) => {
+    dismissModal()
     const response = await API.delete(`${deleteProjectsEndpoint}/${id}`)
-    response.isSuccess && reloadProjects()
+    response.isSuccess ? reloadProjects() : showErrorModal("Delete failed", response.message)
   }
 
   const handleSubmit = async (project) => {
@@ -40,6 +41,27 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   const handleCancel = () => {
     setSelectedForm(0)
   }
+
+  const showDeleteModal = (id) =>
+    handleModal({
+      show: true,
+      title: "Alerts!",
+      content: <p>Are you sure you want to delete this record project?</p>,
+      actions: [
+        <Action.Yes showText onClick={() => handleDelete(id)} />,
+        <Action.No showText onClick={dismissModal} />,
+      ],
+    })
+
+  const showErrorModal = (title, message) =>
+    handleModal({
+      show: true,
+      title: title,
+      content: <p>{message}</p>,
+      actions: [<Action.Close showText onClick={dismissModal} />],
+    })
+
+  const dismissModal = () => handleModal(false)
 
   // View -------------------------------------------------------------------------------------------------------
   const displayableattributes = [
@@ -62,22 +84,22 @@ export default function ProjectPanels({ projects, reloadProjects }) {
               <ObjectTable object={project} attributes={displayableattributes} />
             </Panel.Static>
 
-            <ActionTray>
+            <Action.Tray>
               <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
-                <ActionModify
+                <Action.Modify
                   showText
                   onClick={() => handleModify(project.ProjectID)}
                   buttonText="Modify Project"
                 />
               </ToolTipDecorator>
               <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
-                <ActionDelete
+                <Action.Delete
                   showText
-                  onClick={() => handleDelete(project.ProjectID)}
+                  onClick={() => showDeleteModal(project.ProjectID)}
                   buttonText="Delete Project"
                 />
               </ToolTipDecorator>
-            </ActionTray>
+            </Action.Tray>
 
             {selectedForm === project.ProjectID && (
               <ProjectForm

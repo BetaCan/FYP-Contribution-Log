@@ -1,4 +1,4 @@
-import { ActionTray, ActionAdd, ActionClose } from "./Actions.js"
+import Action from "./Actions.js"
 import ToolTipDecorator from "./ToolTipDecorator.js"
 import { useState } from "react"
 import "./Form.scss"
@@ -20,14 +20,14 @@ export default function Form({ children, onSubmit, onCancel }) {
     <form className="BorderedForm">
       <div className="FormTray">{children}</div>
 
-      <ActionTray>
+      <Action.Tray>
         <ToolTipDecorator message="Add a new project">
-          <ActionAdd showText onClick={handleSubmit} buttonText="Submit" />
+          <Action.Add showText onClick={handleSubmit} buttonText="Submit" />
         </ToolTipDecorator>
         <ToolTipDecorator message="close submission">
-          <ActionClose showText onClick={handleCancel} buttonText="Cancel" />
+          <Action.Close showText onClick={handleCancel} buttonText="Cancel" />
         </ToolTipDecorator>
-      </ActionTray>
+      </Action.Tray>
     </form>
   )
 }

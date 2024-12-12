@@ -1,6 +1,6 @@
 import { useState } from "react"
 import API from "../api/API.js"
-import { ActionTray, ActionAdd } from "../UI/Actions.js"
+import Action from "../UI/Actions.js"
 import ToolTipDecorator from "../UI/ToolTipDecorator.js"
 import ProjectsPanels from "../entities/projects/ProjectsPanels.js"
 import ProjectForm from "../entities/projects/ProjectForm.js"
@@ -59,14 +59,14 @@ export default function MyProjects() {
     <section>
       <h1>My Projects</h1>
 
-      <ActionTray>
+      <Action.Tray>
         <ToolTipDecorator message="Add new Project">
-          <ActionAdd showText onClick={toggleAddForm} buttonText="Add new Project" />
+          <Action.Add showText onClick={toggleAddForm} buttonText="Add new Project" />
         </ToolTipDecorator>
         <ToolTipDecorator message="Join a Project">
-          <ActionAdd showText onClick={toggleJoinForm} buttonText="Join a Project" />
+          <Action.Add showText onClick={toggleJoinForm} buttonText="Join a Project" />
         </ToolTipDecorator>
-      </ActionTray>
+      </Action.Tray>
 
       {showAddProjectForm && <ProjectForm onCancel={CancelAddForm} onSubmit={handleSubmitAdd} />}
       {showJoinProjectForm && (
