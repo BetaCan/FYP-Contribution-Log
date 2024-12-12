@@ -59,17 +59,38 @@ export default function MyProjects() {
 
       <ActionTray>
         <ToolTipDecorator message="Add new Project">
-          <ActionAdd showText onClick={toggleAddForm} buttonText="Add new Project" />
+          <ActionAdd
+            showText
+            onClick={toggleAddForm}
+            buttonText="Add new Project"
+          />
         </ToolTipDecorator>
         <ToolTipDecorator message="Join a Project">
-          <ActionAdd showText onClick={toggleJoinForm} buttonText="Join a Project" />
+          <ActionAdd
+            showText
+            onClick={toggleJoinForm}
+            buttonText="Join a Project"
+          />
         </ToolTipDecorator>
       </ActionTray>
 
-      {showAddProjectForm && <ProjectForm onCancel={CancelAddForm} onSubmit={handleSubmitAdd} />}
-      {showJoinProjectForm && <JoinProjectForm onCancel={CancelJoinForm} onSubmit={handleSubmitJoin} />}
+      {showAddProjectForm && (
+        <ProjectForm onCancel={CancelAddForm} onSubmit={handleSubmitAdd} />
+      )}
+      {showJoinProjectForm && (
+        <JoinProjectForm
+          onCancel={CancelJoinForm}
+          onSubmit={handleSubmitJoin}
+        />
+      )}
 
-      {!projects ? <p>{loadingMessage}</p> : projects.length === 0 ? <p>No projects found</p> : <ProjectsPanels projects={projects} />}
+      {!projects ? (
+        <p>{loadingMessage}</p>
+      ) : projects.length === 0 ? (
+        <p>No projects found</p>
+      ) : (
+        <ProjectsPanels projects={projects} />
+      )}
     </section>
   )
 }

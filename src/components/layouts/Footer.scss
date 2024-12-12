@@ -1,19 +1,19 @@
-@import '../Styles/colors';
+@import "../Styles/colors";
 
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
 
 footer {
-    height: 50px;
-    display: grid;
-    place-items: center;
-    border-top: 1px solid $windows-dark-gray;
-    background: $windows-background;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-top: 1px solid $windows-dark-gray;
+  background: $windows-background;
 
-    a {
-        font-size: 70%;
-        text-decoration: none;
-        color: $windows-blue;
-    }
+  a {
+    font-size: 70%;
+    text-decoration: none;
+    color: $windows-blue;
+  }
 }
