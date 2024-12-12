@@ -1,32 +1,32 @@
-@import '../Styles/colors';
+@import "../Styles/colors";
 
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
 /* --------------------------------------------------------------------------------------- */
 
 nav {
-    display: flex;
-    overflow: hidden;
-    background-color: $windows-light-gray;
+  display: flex;
+  overflow: hidden;
+  background-color: $windows-light-gray;
 }
 
 .navItem.signIn {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 nav div.navItem {
-    padding: 10px;
+  padding: 10px;
 }
 
 nav div.navItem:hover {
-    background-color: $windows-light-blue;
+  background-color: $windows-light-blue;
 }
 
 nav div.navItem a {
-    color: $windows-black;
-    text-decoration: none;
+  color: $windows-black;
+  text-decoration: none;
 }
 
 nav div.navItem a.navSelected {
-    color: $windows-blue;
+  color: $windows-blue;
 }

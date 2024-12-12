@@ -1,35 +1,35 @@
-import PropTypes from 'prop-types'
-import Icon from './Icons.js'
-import './Actions.scss'
-
-// -----------------------------------------
-// Action Tray /////////////////////////////
-// -----------------------------------------
-
-ActionTray.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-}
-
-export function ActionTray({ children }) {
-    return <div className='ActionTray'>{children}</div>
-}
+import PropTypes from "prop-types"
+import Icon from "./Icons.js"
+import "./Actions.scss"
 
 // -----------------------------------------
 // Action Button ///////////////////////////
 // -----------------------------------------
 
-ActionButton.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    showText: PropTypes.bool,
-    buttonText: PropTypes.string.isRequired,
+Action.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  showText: PropTypes.bool,
+  buttonText: PropTypes.string.isRequired,
 }
 
-function ActionButton({ children, onClick, showText, buttonText }) {
-    return (
-        <button className='Action' onClick={onClick}>
-            {children} {showText && <p>{buttonText}</p>}
-        </button>
-    )
+export default function Action({ children, onClick, showText, buttonText }) {
+  return (
+    <button className="Action" onClick={onClick}>
+      {children} {showText && <p>{buttonText}</p>}
+    </button>
+  )
+}
+
+// -----------------------------------------
+// Action Tray /////////////////////////////
+// -----------------------------------------
+
+Tray.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+}
+
+export function Tray({ children }) {
+  return <div className="ActionTray">{children}</div>
 }
 
 // -----------------------------------------
@@ -37,110 +37,179 @@ function ActionButton({ children, onClick, showText, buttonText }) {
 // -----------------------------------------
 
 const ActionPropTypes = {
-    onClick: PropTypes.func.isRequired,
-    showText: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  showText: PropTypes.bool,
+  buttonText: PropTypes.string,
 }
 
-ActionAdd.propTypes = ActionPropTypes
+Add.propTypes = ActionPropTypes
 
-export function ActionAdd({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Add'} onClick={onClick} showText={showText}>
-            <Icon.Plus />
-        </ActionButton>
-    )
+export function Add({ onClick, showText = false, buttonText = "Add" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Plus />
+    </Action>
+  )
 }
 
-ActionClose.propTypes = ActionPropTypes
+Cancel.propTypes = ActionPropTypes
 
-export function ActionClose({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Close'} onClick={onClick} showText={showText}>
-            <Icon.Cross />
-        </ActionButton>
-    )
+export function Cancel({ onClick, showText = false, buttonText = "Cancel" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
 }
 
-ActionDelete.propTypes = ActionPropTypes
+Collapse.propTypes = ActionPropTypes
 
-export function ActionDelete({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Delete'} onClick={onClick} showText={showText}>
-            <Icon.Trash />
-        </ActionButton>
-    )
+export function Collapse({ onClick, showText = false, buttonText = "Collapse" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Collapse />
+    </Action>
+  )
 }
 
-ActionFavourites.propTypes = ActionPropTypes
+Close.propTypes = ActionPropTypes
 
-export function ActionFavourites({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Favourite'} onClick={onClick} showText={showText}>
-            <Icon.RedHeart />
-        </ActionButton>
-    )
+export function Close({ onClick, showText = false, buttonText = "Close" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
 }
 
-ActionListAll.propTypes = ActionPropTypes
+Delete.propTypes = ActionPropTypes
 
-export function ActionListAll({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'List'} onClick={onClick} showText={showText}>
-            <Icon.List />
-        </ActionButton>
-    )
+export function Delete({ onClick, showText = false, buttonText = "Delete" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Trash />
+    </Action>
+  )
 }
 
-ActionModify.propTypes = ActionPropTypes
+Dismiss.propTypes = ActionPropTypes
 
-export function ActionModify({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Modify'} onClick={onClick} showText={showText}>
-            <Icon.Pen />
-        </ActionButton>
-    )
+export function Dismiss({ onClick, showText = false, buttonText = "Dismiss" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
 }
 
-ActionNo.propTypes = ActionPropTypes
+Expand.propTypes = ActionPropTypes
 
-export function ActionNo({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'No'} onClick={onClick} showText={showText}>
-            <Icon.Cross />
-        </ActionButton>
-    )
+export function Expand({ onClick, showText = false, buttonText = "Expand" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Expand />
+    </Action>
+  )
 }
 
-ActionSubscribe.propTypes = ActionPropTypes
+Favourites.propTypes = ActionPropTypes
 
-export function ActionSubscribe({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Subscribe'} onClick={onClick} showText={showText}>
-            <Icon.Tick />
-        </ActionButton>
-    )
+export function Favourites({ onClick, showText = false, buttonText = "List favourites" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.RedHeart />
+    </Action>
+  )
 }
 
-ActionYes.propTypes = ActionPropTypes
+ListAll.propTypes = ActionPropTypes
 
-export function ActionYes({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton buttonText={buttonText || 'Yes'} onClick={onClick} showText={showText}>
-            <Icon.Tick />
-        </ActionButton>
-    )
+export function ListAll({ onClick, showText = false, buttonText = "List all" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.List />
+    </Action>
+  )
 }
 
-ActionUnsubscribe.propTypes = ActionPropTypes
+Modify.propTypes = ActionPropTypes
 
-export function ActionUnsubscribe({ onClick, showText = false, buttonText = null }) {
-    return (
-        <ActionButton
-            buttonText={buttonText || 'Unsubscribe'}
-            onClick={onClick}
-            showText={showText}
-        >
-            <Icon.Cross />
-        </ActionButton>
-    )
+export function Modify({ onClick, showText = false, buttonText = "Modify" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Pen />
+    </Action>
+  )
 }
+
+No.propTypes = ActionPropTypes
+
+export function No({ onClick, showText = false, buttonText = "No" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
+}
+
+Submit.propTypes = ActionPropTypes
+
+export function Submit({ onClick, showText = false, buttonText = "Submit" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Tick />
+    </Action>
+  )
+}
+
+Subscribe.propTypes = ActionPropTypes
+
+export function Subscribe({ onClick, showText = false, buttonText = "Subscribe" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Tick />
+    </Action>
+  )
+}
+
+Yes.propTypes = ActionPropTypes
+
+export function Yes({ onClick, showText = false, buttonText = "Yes" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Tick />
+    </Action>
+  )
+}
+
+Unsubscribe.propTypes = ActionPropTypes
+
+export function Unsubscribe({ onClick, showText = false, buttonText = "Unsubscribe" }) {
+  return (
+    <Action buttonText={buttonText} onClick={onClick} showText={showText}>
+      <Icon.Cross />
+    </Action>
+  )
+}
+
+// -----------------------------------------
+// Compose Action Object ///////////////////
+// -----------------------------------------
+
+Action.Tray = Tray
+
+Action.Add = Add
+Action.Cancel = Cancel
+Action.Close = Close
+Action.Collapse = Collapse
+Action.Delete = Delete
+Action.Dismiss = Dismiss
+Action.Expand = Expand
+Action.Favourites = Favourites
+Action.ListAll = ListAll
+Action.Modify = Modify
+Action.No = No
+Action.Submit = Submit
+Action.Subscribe = Subscribe
+Action.Yes = Yes
+Action.Unsubscribe = Unsubscribe

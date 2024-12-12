@@ -1,45 +1,45 @@
-import { NavLink } from 'react-router-dom'
-import './Navbar.scss'
+import { NavLink } from "react-router-dom"
+import "./Navbar.scss"
 
 function XYZ() {
-    // Properties -------------------------------------------------------------------------------------------------
+  // Properties -------------------------------------------------------------------------------------------------
 
-    // Hooks ------------------------------------------------------------------------------------------------------
+  // Hooks ------------------------------------------------------------------------------------------------------
 
-    // Context ----------------------------------------------------------------------------------------------------
+  // Context ----------------------------------------------------------------------------------------------------
 
-    // Methods ----------------------------------------------------------------------------------------------------
-    const getLinkStyle = ({ isActive }) => (isActive ? 'nav.Selected' : null)
-    // View -------------------------------------------------------------------------------------------------------
-    return (
-        <nav>
-            <div className='navItem'>
-                <NavLink to='/' className={getLinkStyle}>
-                    Home
-                </NavLink>
-            </div>
-            {/* <div className='navItem'>
+  // Methods ----------------------------------------------------------------------------------------------------
+  const getLinkStyle = ({ isActive }) => (isActive ? "nav.Selected" : null)
+  // View -------------------------------------------------------------------------------------------------------
+  return (
+    <nav>
+      <div className="navItem">
+        <NavLink to="/" className={getLinkStyle}>
+          Home
+        </NavLink>
+      </div>
+      {/* <div className='navItem'>
                 <NavLink to='/contact' className={getLinkStyle}>
                     Contact Us
                 </NavLink>
             </div> */}
-            <div className='navItem'>
-                <NavLink to='/projects' className={getLinkStyle}>
-                    Projects
-                </NavLink>
-            </div>
-            <div className='navItem'>
-                <NavLink to='/myprojects' className={getLinkStyle}>
-                    My Projects
-                </NavLink>
-            </div>
-            <div className='navItem signIn'>
-                <NavLink to='/signin' className={getLinkStyle}>
-                    SignIn
-                </NavLink>
-            </div>
-        </nav>
-    )
+      <div className="navItem">
+        <NavLink to="/projects" className={getLinkStyle}>
+          Projects
+        </NavLink>
+      </div>
+      <div className="navItem">
+        <NavLink to="/myprojects" className={getLinkStyle}>
+          My Projects
+        </NavLink>
+      </div>
+      <div className="navItem signIn">
+        <NavLink to="/signin" className={getLinkStyle}>
+          SignIn
+        </NavLink>
+      </div>
+    </nav>
+  )
 }
 
 export default XYZ
