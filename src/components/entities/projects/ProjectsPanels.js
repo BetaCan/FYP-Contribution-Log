@@ -1,46 +1,47 @@
-import API from "../../api/API.js"
-import Modal from "../../UI/Modal.js"
-import Panel from "../../UI/Panel.js"
-import ObjectTable from "../../UI/ObjectTable.js"
-import Action from "../../UI/Actions.js"
-import ToolTipDecorator from "../../UI/ToolTipDecorator.js"
-import ProjectForm from "./ProjectForm.js"
-import { useState } from "react"
+import API from "../../api/API.js";
+import Modal from "../../UI/Modal.js";
+import Panel from "../../UI/Panel.js";
+import ObjectTable from "../../UI/ObjectTable.js";
+import Action from "../../UI/Actions.js";
+import ToolTipDecorator from "../../UI/ToolTipDecorator.js";
+import ProjectForm from "./ProjectForm.js";
+import { useState } from "react";
 
 export default function ProjectPanels({ projects, reloadProjects }) {
   // Initialisation  -------------------------------------------------------------------------------------------------
-  const putProjectsEndpoint = `/projects`
-  const deleteProjectsEndpoint = `/projects`
+  const putProjectsEndpoint = `/projects`;
+  const deleteProjectsEndpoint = `/projects`;
   // State ------------------------------------------------------------------------------------------------------
-  const [selectedForm, setSelectedForm] = useState(0)
+  const [selectedForm, setSelectedForm] = useState(0);
 
   // Context ----------------------------------------------------------------------------------------------------
-  const { handleModal } = Modal.useModal()
+  const { handleModal } = Modal.useModal();
 
   // Methods ----------------------------------------------------------------------------------------------------
   const handleModify = (id) => {
-    setSelectedForm(id === selectedForm ? 0 : id)
-  }
+    setSelectedForm(id === selectedForm ? 0 : id);
+  };
 
   const handleDelete = async (id) => {
-    dismissModal()
-    const response = await API.delete(`${deleteProjectsEndpoint}/${id}`)
-    response.isSuccess ? reloadProjects() : showErrorModal("Delete failed", response.message)
-  }
+    dismissModal();
+    const response = await API.delete(`${deleteProjectsEndpoint}/${id}`);
+    response.isSuccess ? reloadProjects() : showErrorModal("Delete failed", response.message);
+  };
 
   const handleSubmit = async (project) => {
-    const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project)
+    const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project);
+    console.log("response", response); // Debugging
     if (response.isSuccess) {
-      setSelectedForm(0)
-      reloadProjects()
+      setSelectedForm(0);
+      reloadProjects();
     } else {
-      console.error("Failed to update project:", response.message)
+      console.error("Failed to update project:", response.message);
     }
-  }
+  };
 
   const handleCancel = () => {
-    setSelectedForm(0)
-  }
+    setSelectedForm(0);
+  };
 
   const showDeleteModal = (id) =>
     handleModal({
@@ -51,7 +52,7 @@ export default function ProjectPanels({ projects, reloadProjects }) {
         <Action.Yes showText onClick={() => handleDelete(id)} />,
         <Action.No showText onClick={dismissModal} />,
       ],
-    })
+    });
 
   const showErrorModal = (title, message) =>
     handleModal({
@@ -59,20 +60,20 @@ export default function ProjectPanels({ projects, reloadProjects }) {
       title: title,
       content: <p>{message}</p>,
       actions: [<Action.Close showText onClick={dismissModal} />],
-    })
+    });
 
-  const dismissModal = () => handleModal(false)
+  const dismissModal = () => handleModal(false);
 
   // View -------------------------------------------------------------------------------------------------------
   const displayableattributes = [
     { key: "ProjectID", label: "ID" },
     { key: "UserprojectRole", label: "Role" },
     { key: "ProjectDescription", label: "Description" },
-  ]
+  ];
 
-  const activeProjects = projects.filter((project) => project.ProjectStatus === "Active")
-  const inProgressProjects = projects.filter((project) => project.ProjectStatus === "In Progress")
-  const completedProjects = projects.filter((project) => project.ProjectStatus === "Completed")
+  const activeProjects = projects.filter((project) => project.ProjectStatus === "Active");
+  const inProgressProjects = projects.filter((project) => project.ProjectStatus === "In Progress");
+  const completedProjects = projects.filter((project) => project.ProjectStatus === "Completed");
 
   return (
     <div>
@@ -184,5 +185,5 @@ export default function ProjectPanels({ projects, reloadProjects }) {
         ))}
       </Panel.Container>
     </div>
-  )
+  );
 }

@@ -1,58 +1,58 @@
-import { useState } from "react"
-import API from "../api/API.js"
-import Action from "../UI/Actions.js"
-import ToolTipDecorator from "../UI/ToolTipDecorator.js"
-import ProjectsPanels from "../entities/projects/ProjectsPanels.js"
-import ProjectForm from "../entities/projects/ProjectForm.js"
-import JoinProjectForm from "../entities/projects/JoinProjectForm.js"
-import useLoad from "../api/useLoad.js"
+import { useState } from "react";
+import API from "../api/API.js";
+import Action from "../UI/Actions.js";
+import ToolTipDecorator from "../UI/ToolTipDecorator.js";
+import ProjectsPanels from "../entities/projects/ProjectsPanels.js";
+import ProjectForm from "../entities/projects/ProjectForm.js";
+import JoinProjectForm from "../entities/projects/JoinProjectForm.js";
+import useLoad from "../api/useLoad.js";
 
 export default function MyProjects() {
   // Initialisation -------------------------------------------------------------------------------------------------
-  const loggedInUserID = 4
-  const getProjectsEndpoint = `/projects/user/${loggedInUserID}`
-  const postProjectEndpoint = `/projects`
-  const postUserProjectEndpoint = `/userprojects`
+  const loggedInUserID = 4;
+  const getProjectsEndpoint = `/projects/${loggedInUserID}`;
+  const postProjectEndpoint = `/projects`;
+  const postUserProjectEndpoint = `/userprojects`;
 
   // State ------------------------------------------------------------------------------------------------------
-  const [projects, , loadingMessage, loadProjects] = useLoad(getProjectsEndpoint)
-  const [showAddProjectForm, setShowAddProjectForm] = useState(false)
-  const [showJoinProjectForm, setShowJoinProjectForm] = useState(false)
+  const [projects, , loadingMessage, loadProjects] = useLoad(getProjectsEndpoint);
+  const [showAddProjectForm, setShowAddProjectForm] = useState(false);
+  const [showJoinProjectForm, setShowJoinProjectForm] = useState(false);
 
   // Methods ----------------------------------------------------------------------------------------------------
   const toggleAddForm = () => {
-    setShowAddProjectForm(!showAddProjectForm)
-    setShowJoinProjectForm(false)
-  }
+    setShowAddProjectForm(!showAddProjectForm);
+    setShowJoinProjectForm(false);
+  };
   const toggleJoinForm = () => {
-    setShowJoinProjectForm(!showJoinProjectForm)
-    setShowAddProjectForm(false)
-  }
-  const CancelAddForm = () => setShowAddProjectForm(false)
-  const CancelJoinForm = () => setShowJoinProjectForm(false)
+    setShowJoinProjectForm(!showJoinProjectForm);
+    setShowAddProjectForm(false);
+  };
+  const CancelAddForm = () => setShowAddProjectForm(false);
+  const CancelJoinForm = () => setShowJoinProjectForm(false);
 
   const handleSubmitAdd = async (project) => {
-    const response = await API.post(postProjectEndpoint, project)
+    const response = await API.post(postProjectEndpoint, project);
     if (response.isSuccess) {
-      await loadProjects() // Refresh the project list
-      setShowAddProjectForm(false) // Close the form after submission
+      await loadProjects(); // Refresh the project list
+      setShowAddProjectForm(false); // Close the form after submission
     } else {
-      console.error("Failed to add project:", response.message)
+      console.error("Failed to add project:", response.message);
     }
-  }
+  };
 
   const handleSubmitJoin = async (joinProject) => {
     const response = await API.post(postUserProjectEndpoint, {
       ...joinProject,
       UserProjectUserID: loggedInUserID,
-    })
+    });
     if (response.isSuccess) {
-      await loadProjects() // Refresh the project list
-      setShowJoinProjectForm(false) // Close the form after submission
+      await loadProjects(); // Refresh the project list
+      setShowJoinProjectForm(false); // Close the form after submission
     } else {
-      console.error("Failed to join project:", response.message)
+      console.error("Failed to join project:", response.message);
     }
-  }
+  };
 
   // View -------------------------------------------------------------------------------------------------------
   return (
@@ -84,5 +84,5 @@ export default function MyProjects() {
         />
       )}
     </section>
-  )
+  );
 }
