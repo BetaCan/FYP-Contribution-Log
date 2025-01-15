@@ -10,9 +10,9 @@ import useLoad from "../api/useLoad.js";
 export default function MyProjects() {
   // Initialisation -------------------------------------------------------------------------------------------------
   const loggedInUserID = 4;
-  const getProjectsEndpoint = `/projects/${loggedInUserID}`;
+  const getProjectsEndpoint = `/projects/user/${loggedInUserID}`;
   const postProjectEndpoint = `/projects`;
-  const postUserProjectEndpoint = `/userprojects`;
+  const postProjectmembersEndpoint = `/projectmembers`;
 
   // State ------------------------------------------------------------------------------------------------------
   const [projects, , loadingMessage, loadProjects] = useLoad(getProjectsEndpoint);
@@ -21,8 +21,8 @@ export default function MyProjects() {
   useEffect(() => {
     projects &&
       projects.map((project) => {
-        project.ProjectStartDate = new Date(project.ProjectStartDate);
-        project.ProjectEndDate = new Date(project.ProjectEndDate);
+        project.ProjectStartDate = new Date(project.ProjectStartDate).toISOString().slice(0, 10);
+        project.ProjectEndDate = new Date(project.ProjectEndDate).toISOString().slice(0, 10);
         return project;
       });
   }, [projects]);
@@ -50,7 +50,7 @@ export default function MyProjects() {
   };
 
   const handleSubmitJoin = async (joinProject) => {
-    const response = await API.post(postUserProjectEndpoint, {
+    const response = await API.post(postProjectmembersEndpoint, {
       ...joinProject,
       UserProjectUserID: loggedInUserID,
     });
