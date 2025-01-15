@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../api/API.js";
 import Action from "../UI/Actions.js";
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
@@ -18,6 +18,14 @@ export default function MyProjects() {
   const [projects, , loadingMessage, loadProjects] = useLoad(getProjectsEndpoint);
   const [showAddProjectForm, setShowAddProjectForm] = useState(false);
   const [showJoinProjectForm, setShowJoinProjectForm] = useState(false);
+  useEffect(() => {
+    projects &&
+      projects.map((project) => {
+        project.ProjectStartDate = new Date(project.ProjectStartDate);
+        project.ProjectEndDate = new Date(project.ProjectEndDate);
+        return project;
+      });
+  }, [projects]);
 
   // Methods ----------------------------------------------------------------------------------------------------
   const toggleAddForm = () => {

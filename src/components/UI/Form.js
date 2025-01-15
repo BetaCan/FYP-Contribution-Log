@@ -62,7 +62,10 @@ function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel
   // Handlers ------------------------------------------------
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const newValue = conformance.includes(name) ? parseInt(value) : value;
+    let newValue = conformance.includes(name) ? parseInt(value) : value;
+    if (name === "ProjectStartDate" || name === "ProjectEndDate") {
+      newValue = new Date(newValue);
+    }
     setRecord({ ...record, [name]: newValue });
     setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] });
   };

@@ -1,4 +1,4 @@
-import Form from "../../UI/Form.js"
+import Form from "../../UI/Form.js";
 
 const emptyProject = {
   ProjectName: "Dummy Project",
@@ -6,7 +6,7 @@ const emptyProject = {
   ProjectStartDate: "15/11/2024",
   ProjectEndDate: "26/11/2026",
   ProjectStatus: "Active",
-}
+};
 
 export default function ProjectForm({ onCancel, onSubmit, initialProject = emptyProject }) {
   // Initialisation -------------------------------------------------------------------------------------------------
@@ -15,12 +15,12 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
       ProjectName: (name) => name.length > 5,
       ProjectDescription: (description) => description.length > 20,
       ProjectStartDate: (startDate) => {
-        const date = new Date(startDate)
-        return !isNaN(date.getTime())
+        const date = new Date(startDate);
+        return !isNaN(date.getTime());
       },
       ProjectEndDate: (endDate) => {
-        const date = new Date(endDate)
-        return !isNaN(date.getTime())
+        const date = new Date(endDate);
+        return !isNaN(date.getTime());
       },
       ProjectStatus: (status) => ["In Progress", "Completed", "Active"].includes(status),
     },
@@ -32,9 +32,9 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
       ProjectEndDate: "Invalid end date - must be a valid date",
       ProjectStatus: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
     },
-  }
+  };
 
-  const conformance = []
+  const conformance = [];
 
   // State ------------------------------------------------------------------------------------------------------
   const [project, errors, handleChange, handleSubmit] = Form.useForm(
@@ -43,7 +43,7 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
     validation,
     onCancel,
     onSubmit
-  )
+  );
 
   // Handlers ----------------------------------------------------------------------------------------------------
 
@@ -82,7 +82,7 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
         <input
           type="date"
           name="ProjectStartDate"
-          value={project.ProjectStartDate}
+          value={project.ProjectStartDate.toISOString().slice(0, 10)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -96,7 +96,7 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
         <input
           type="date"
           name="ProjectEndDate"
-          value={project.ProjectEndDate}
+          value={project.ProjectEndDate.toISOString().slice(0, 10)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -122,5 +122,5 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
         </select>
       </Form.Item>
     </Form>
-  )
+  );
 }
