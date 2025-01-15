@@ -20,6 +20,7 @@ export default function ProjectPanels({ projects, reloadProjects }) {
   // Methods ----------------------------------------------------------------------------------------------------
   const handleModify = (id) => {
     setSelectedForm(id === selectedForm ? 0 : id);
+    console.log("isSuccess"); // Debugging
   };
 
   const handleDelete = async (id) => {
