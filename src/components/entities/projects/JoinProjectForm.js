@@ -1,10 +1,10 @@
-import Form from "../../UI/Form.js"
-import useLoad from "../../api/useLoad.js"
+import Form from "../../UI/Form.js";
+import useLoad from "../../api/useLoad.js";
 
 const emptyJoinProject = {
-  UserProjectProjectID: "",
-  UserprojectRole: "",
-}
+  ProjectID: "",
+  UserID: "",
+};
 
 export default function JoinProjectForm({
   onCancel,
@@ -14,17 +14,24 @@ export default function JoinProjectForm({
   // Initialisation -------------------------------------------------------------------------------------------------
   const validation = {
     isValid: {
-      UserProjectProjectID: (id) => id !== 0,
-      UserprojectRole: (role) =>
-        ["Contributor", "Viewer", "Manager"].includes(role),
+      ProjectID: (id) => id !== 0,
+      UserID: (id) => id !== 0,
     },
     errorMessage: {
-      UserProjectProjectID: "Invalid Project ID - must not be empty",
-      UserprojectRole:
-        "Invalid role - must be 'Contributor', 'Viewer', or 'Manager'",
+      ProjectID: "Invalid Project ID - must not be empty",
+      UserID: "Invalid User ID - must not be empty",
     },
-  }
-  const conformance = ["UserProjectProjectID", "UserProjectRole"]
+  };
+  const conformance = {
+    js2html: {
+      ModuleID: (id) => (id === null ? 0 : id),
+      UserID: (id) => (id === null ? 0 : id),
+    },
+    html2js: {
+      ModuleID: (id) => (parseInt(id) === 0 ? null : parseInt(id)),
+      UserID: (id) => (parseInt(id) === 0 ? null : parseInt(id)),
+    },
+  };
 
   // State ------------------------------------------------------------------------------------------------------
   const [joinProject, errors, handleChange, handleSubmit] = Form.useForm(
@@ -33,9 +40,10 @@ export default function JoinProjectForm({
     validation,
     onCancel,
     onSubmit
-  )
-  const [projects, , loadingProjectsMessage] = useLoad("/projects")
-  const [users, , loadingUsersMessage] = useLoad("/users")
+  );
+  const [projects, , loadingProjectsMessage] = useLoad("/projects");
+  const [users, , loadingUsersMessage] = useLoad("/users");
+  const [userRoles, , loadingUserRolesMessage] = useLoad("/userroles");
 
   // Handlers ----------------------------------------------------------------------------------------------------
 
@@ -76,11 +84,7 @@ export default function JoinProjectForm({
         advice="Choose your role in the project"
         error={errors.UserprojectRole}
       >
-        <select
-          name="UserprojectRole"
-          value={joinProject.UserprojectRole}
-          onChange={handleChange}
-        >
+        <select name="UserprojectRole" value={joinProject.UserprojectRole} onChange={handleChange}>
           <option value="" disabled>
             Choose a role
           </option>
@@ -92,5 +96,5 @@ export default function JoinProjectForm({
         </select>
       </Form.Item>
     </Form>
-  )
+  );
 }

@@ -62,7 +62,8 @@ function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel
   // Handlers ------------------------------------------------
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let newValue = conformance.includes(name) ? parseInt(value) : value;
+    let newValue =
+      conformance.html2js && conformance.html2js[name] ? conformance.html2js[name](value) : value;
     if (name === "ProjectStartDate" || name === "ProjectEndDate") {
       newValue = new Date(newValue);
     }

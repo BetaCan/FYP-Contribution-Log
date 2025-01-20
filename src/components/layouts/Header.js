@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import "./Header.scss"
+import { Link } from "react-router-dom";
+import "./Header.scss";
 
 function Header() {
   // Properties -------------------------------------------------------------------------------------------------
@@ -15,19 +15,16 @@ function Header() {
   return (
     <header>
       <Link to="/">
-        <img
-          src="https://img.icons8.com/?size=100&id=40610&format=png&color=000000"
-          alt="Logo"
-        />
+        <img src="https://img.icons8.com/?size=100&id=40610&format=png&color=000000" alt="Logo" />
       </Link>
       <Link to="/">
         <h1>React build</h1>
       </Link>
-      <div class="login">
+      <div className="login">
         <p>Welcome User!!</p>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
