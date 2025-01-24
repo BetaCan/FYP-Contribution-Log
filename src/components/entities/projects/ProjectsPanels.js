@@ -7,20 +7,15 @@ import ToolTipDecorator from "../../UI/ToolTipDecorator.js";
 import ProjectForm from "./ProjectForm.js";
 import { useState } from "react";
 
-export default function ProjectPanels({ projects, reloadProjects }) {
-  // Initialisation  -------------------------------------------------------------------------------------------------
-  const putProjectsEndpoint = `/projects`;
-  const deleteProjectsEndpoint = `/projects`;
-  // State ------------------------------------------------------------------------------------------------------
-  const [selectedForm, setSelectedForm] = useState(0);
+export default function ProjectsPanels({ projects, reloadProjects }) {
+  const putProjectsEndpoint = `/project`;
+  const deleteProjectsEndpoint = `/project`;
 
-  // Context ----------------------------------------------------------------------------------------------------
+  const [selectedForm, setSelectedForm] = useState(0);
   const { handleModal } = Modal.useModal();
 
-  // Methods ----------------------------------------------------------------------------------------------------
   const handleModify = (id) => {
     setSelectedForm(id === selectedForm ? 0 : id);
-    console.log("isSuccess"); // Debugging
   };
 
   const handleDelete = async (id) => {
@@ -31,7 +26,6 @@ export default function ProjectPanels({ projects, reloadProjects }) {
 
   const handleSubmit = async (project) => {
     const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project);
-    console.log("response", response); // Debugging
     if (response.isSuccess) {
       setSelectedForm(0);
       reloadProjects();
@@ -65,16 +59,10 @@ export default function ProjectPanels({ projects, reloadProjects }) {
 
   const dismissModal = () => handleModal(false);
 
-  // View -------------------------------------------------------------------------------------------------------
   const displayableattributes = [
     { key: "ProjectID", label: "ID" },
-    { key: "RoleName", label: "Role" },
     { key: "ProjectDescription", label: "Description" },
   ];
-
-  // const activeProjects = projects.filter((project) => project.ProjectStatus === "Active");
-  // const inProgressProjects = projects.filter((project) => project.ProjectStatus === "In Progress");
-  // const completedProjects = projects.filter((project) => project.ProjectStatus === "Completed");
 
   return (
     <div>
@@ -114,115 +102,5 @@ export default function ProjectPanels({ projects, reloadProjects }) {
         ))}
       </Panel.Container>
     </div>
-
-    // <div>
-    //   <Panel.Container>
-    //     <h4>Active Projects</h4>
-    //     {activeProjects.map((project) => (
-    //       <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
-    //         <Panel.Static level={1}>
-    //           <ObjectTable object={project} attributes={displayableattributes} />
-    //         </Panel.Static>
-
-    //         <Action.Tray>
-    //           <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
-    //             <Action.Modify
-    //               showText
-    //               onClick={() => handleModify(project.ProjectID)}
-    //               buttonText="Modify Project"
-    //             />
-    //           </ToolTipDecorator>
-    //           <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
-    //             <Action.Delete
-    //               showText
-    //               onClick={() => showDeleteModal(project.ProjectID)}
-    //               buttonText="Delete Project"
-    //             />
-    //           </ToolTipDecorator>
-    //         </Action.Tray>
-
-    //         {selectedForm === project.ProjectID && (
-    //           <ProjectForm
-    //             onCancel={handleCancel}
-    //             onSubmit={handleSubmit}
-    //             initialProject={project}
-    //           />
-    //         )}
-    //       </Panel>
-    //     ))}
-    //   </Panel.Container>
-
-    //   <Panel.Container>
-    //     <h4>In Progress Projects</h4>
-    //     {inProgressProjects.map((project) => (
-    //       <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
-    //         <Panel.Static level={1}>
-    //           <ObjectTable object={project} attributes={displayableattributes} />
-    //         </Panel.Static>
-
-    //         <Action.Tray>
-    //           <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
-    //             <Action.Modify
-    //               showText
-    //               onClick={() => handleModify(project.ProjectID)}
-    //               buttonText="Modify Project"
-    //             />
-    //           </ToolTipDecorator>
-    //           <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
-    //             <Action.Delete
-    //               showText
-    //               onClick={() => showDeleteModal(project.ProjectID)}
-    //               buttonText="Delete Project"
-    //             />
-    //           </ToolTipDecorator>
-    //         </Action.Tray>
-
-    //         {selectedForm === project.ProjectID && (
-    //           <ProjectForm
-    //             onCancel={handleCancel}
-    //             onSubmit={handleSubmit}
-    //             initialProject={project}
-    //           />
-    //         )}
-    //       </Panel>
-    //     ))}
-    //   </Panel.Container>
-
-    //   <Panel.Container>
-    //     <h4>Completed Projects</h4>
-    //     {completedProjects.map((project) => (
-    //       <Panel key={project.ProjectID} title={`${project.ProjectName}`} level={1}>
-    //         <Panel.Static level={1}>
-    //           <ObjectTable object={project} attributes={displayableattributes} />
-    //         </Panel.Static>
-
-    //         <Action.Tray>
-    //           <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
-    //             <Action.Modify
-    //               showText
-    //               onClick={() => handleModify(project.ProjectID)}
-    //               buttonText="Modify Project"
-    //             />
-    //           </ToolTipDecorator>
-    //           <ToolTipDecorator message={`Delete ${project.ProjectName} Project`}>
-    //             <Action.Delete
-    //               showText
-    //               onClick={() => showDeleteModal(project.ProjectID)}
-    //               buttonText="Delete Project"
-    //             />
-    //           </ToolTipDecorator>
-    //         </Action.Tray>
-
-    //         {selectedForm === project.ProjectID && (
-    //           <ProjectForm
-    //             onCancel={handleCancel}
-    //             onSubmit={handleSubmit}
-    //             initialProject={project}
-    //           />
-    //         )}
-    //       </Panel>
-    //     ))}
-    //   </Panel.Container>
-    // </div>
   );
 }
