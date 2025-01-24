@@ -18,7 +18,7 @@ function Header() {
         <img src="https://img.icons8.com/?size=100&id=40610&format=png&color=000000" alt="Logo" />
       </Link>
       <Link to="/">
-        <h1>React build</h1>
+        <h1>Sprint Sync</h1>
       </Link>
       <div className="login">
         <p>Welcome User!!</p>
