@@ -78,7 +78,7 @@ function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel
       ...errors,
     };
 
-    Object.keys(record).forEach((key) => {
+    Object.keys(isValid).forEach((key) => {
       if (isValid[key](record[key])) {
         newErrors[key] = null;
       } else {
