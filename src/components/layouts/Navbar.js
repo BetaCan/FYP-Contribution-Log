@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom"
-import "./Navbar.scss"
+import { NavLink } from "react-router-dom";
+import "./Navbar.scss";
 
 function XYZ() {
   // Properties -------------------------------------------------------------------------------------------------
@@ -9,7 +9,7 @@ function XYZ() {
   // Context ----------------------------------------------------------------------------------------------------
 
   // Methods ----------------------------------------------------------------------------------------------------
-  const getLinkStyle = ({ isActive }) => (isActive ? "nav.Selected" : null)
+  const getLinkStyle = ({ isActive }) => (isActive ? "nav.Selected" : null);
   // View -------------------------------------------------------------------------------------------------------
   return (
     <nav>
@@ -29,6 +29,11 @@ function XYZ() {
         </NavLink>
       </div>
       <div className="navItem">
+        <NavLink to="/logs" className={getLinkStyle}>
+          Logs
+        </NavLink>
+      </div>
+      <div className="navItem">
         <NavLink to="/myprojects" className={getLinkStyle}>
           My Projects
         </NavLink>
@@ -39,7 +44,7 @@ function XYZ() {
         </NavLink>
       </div>
     </nav>
-  )
+  );
 }
 
-export default XYZ
+export default XYZ;

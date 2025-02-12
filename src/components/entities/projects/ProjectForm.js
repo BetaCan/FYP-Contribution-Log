@@ -13,12 +13,11 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
   const validation = {
     isValid: {
       ProjectName: (name) => name.length > 5,
-      ProjectStartDate: (date) => !isNaN(date.getTime()),
-      ProjectEndDate: (date) => !isNaN(date.getTime()),
+      ProjectStartDate: (date) => !isNaN(new Date(date).getTime()),
+      ProjectEndDate: (date) => !isNaN(new Date(date).getTime()),
       ProjectStatus: (status) => ["In Progress", "Completed", "Active"].includes(status),
       ProjectDescription: (description) => description.length > 20,
     },
-
     errorMessage: {
       ProjectName: "Invalid name - must be at least 5 characters",
       ProjectDescription: "Invalid description - must be at least 20 characters",
@@ -30,15 +29,6 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
 
   const conformance = [""];
 
-  // js2html: {
-  //   ProjectStartDate: (date) => new Date(date).toISOString().slice(0, 10),
-  //   ProjectEndDate: (date) => new Date(date).toISOString().slice(0, 10),
-  // },
-  // html2js: {
-  //   ProjectStartDate: (date) => new Date(date),
-  //   ProjectEndDate: (date) => new Date(date),
-  // },
-
   // State ------------------------------------------------------------------------------------------------------
   const [project, errors, handleChange, handleSubmit] = Form.useForm(
     initialProject,
@@ -47,13 +37,6 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
     onCancel,
     onSubmit
   );
-
-  // Handlers ----------------------------------------------------------------------------------------------------
-  // const handleChangeWrapper = (e) => {
-  //   const { name, value } = e.target;
-  //   const conformedValue = conformance.html2js[name] ? conformance.html2js[name](value) : value;
-  //   handleChange({ target: { name, value: conformedValue } });
-  // };
 
   // View -------------------------------------------------------------------------------------------------------
   return (
@@ -90,7 +73,6 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
         <input
           type="date"
           name="ProjectStartDate"
-          // value={conformance.js2html["ProjectStartDate"](project.ProjectStartDate)}
           value={project.ProjectStartDate}
           onChange={handleChange}
         />
@@ -105,7 +87,6 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
         <input
           type="date"
           name="ProjectEndDate"
-          // value={conformance.js2html["ProjectEndDate"](project.ProjectEndDate)}
           value={project.ProjectEndDate}
           onChange={handleChange}
         />
