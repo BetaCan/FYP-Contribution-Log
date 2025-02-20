@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import {useState, useEffect, useContext, useCallback} from "react";
 import API from "../api/API.js";
 import Action from "../UI/Actions.js";
 import ToolTipDecorator from "../UI/ToolTipDecorator.js";
@@ -9,8 +9,9 @@ import UserContext from "../../context/UserContext.js"; // Corrected import path
 
 export default function MyProjects() {
   // Initialisation -------------------------------------------------------------------------------------------------
-  const { loggedInUser } = useContext(UserContext); // Get logged in user from context
-  const loggedInUserID = loggedInUser?.id; // Assuming the user object has an id property
+  const {loggedInUser} = useContext(UserContext); // Get logged in user from context
+  const loggedInUserID = loggedInUser?.UserID; // Assuming the user object has an id property
+  //const loggedInUserID = 4; // Assuming the user object has an id property
 
   // State ------------------------------------------------------------------------------------------------------
   const [projects, setProjects] = useState(null);
@@ -18,7 +19,7 @@ export default function MyProjects() {
   const [showAddProjectForm, setShowAddProjectForm] = useState(false);
   const [showJoinProjectForm, setShowJoinProjectForm] = useState(false);
 
-  const loadProjects = async () => {
+  const loadProjects = useCallback(async () => {
     if (loggedInUserID) {
       const getProjectsEndpoint = `/projects/user/${loggedInUserID}`;
       const response = await API.get(getProjectsEndpoint);
@@ -28,11 +29,11 @@ export default function MyProjects() {
         setLoadingMessage(response.message);
       }
     }
-  };
+  }, [loggedInUserID]);
 
   useEffect(() => {
     loadProjects();
-  }, [loggedInUserID]);
+  }, [loggedInUserID, loadProjects]);
 
   useEffect(() => {
     projects &&

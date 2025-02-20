@@ -4,18 +4,18 @@ const emptyProject = {
   ProjectName: "Dummy Project",
   ProjectStartDate: new Date("2024-11-15"),
   ProjectEndDate: new Date("2024-12-15"),
-  ProjectStatus: "Active",
+  Project_ProjectStatusID: "Active",
   ProjectDescription: "ipsum dolor sit amet, consectetur adipiscing elit",
 };
 
-export default function ProjectForm({ onCancel, onSubmit, initialProject = emptyProject }) {
+export default function ProjectForm({onCancel, onSubmit, initialProject = emptyProject}) {
   // Initialisation -------------------------------------------------------------------------------------------------
   const validation = {
     isValid: {
       ProjectName: (name) => name.length > 5,
       ProjectStartDate: (date) => !isNaN(new Date(date).getTime()),
       ProjectEndDate: (date) => !isNaN(new Date(date).getTime()),
-      ProjectStatus: (status) => ["In Progress", "Completed", "Active"].includes(status),
+      Project_ProjectStatusID: (status) => ["In Progress", "Completed", "Active"].includes(status),
       ProjectDescription: (description) => description.length > 20,
     },
     errorMessage: {
@@ -23,7 +23,7 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
       ProjectDescription: "Invalid description - must be at least 20 characters",
       ProjectStartDate: "Invalid start date - must be a valid date",
       ProjectEndDate: "Invalid end date - must be a valid date",
-      ProjectStatus: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
+      Project_ProjectStatusID: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
     },
   };
 
@@ -94,11 +94,15 @@ export default function ProjectForm({ onCancel, onSubmit, initialProject = empty
 
       <Form.Item
         label="Project status"
-        htmlFor="ProjectStatus"
+        htmlFor="Project_ProjectStatusID"
         advice="choose whether the project is In Progress, Completed, or Active"
-        error={errors.ProjectStatus}
+        error={errors.Project_ProjectStatusID}
       >
-        <select name="ProjectStatus" value={project.ProjectStatus} onChange={handleChange}>
+        <select
+          name="Project_ProjectStatusID"
+          value={project.Project_ProjectStatusID}
+          onChange={handleChange}
+        >
           <option value="0" disabled>
             Choose a status
           </option>

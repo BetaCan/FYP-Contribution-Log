@@ -5,14 +5,14 @@ import ObjectTable from "../../UI/ObjectTable.js";
 import Action from "../../UI/Actions.js";
 import ToolTipDecorator from "../../UI/ToolTipDecorator.js";
 import ProjectForm from "./ProjectForm.js";
-import { useState } from "react";
+import {useState} from "react";
 
-export default function ProjectsPanels({ projects, reloadProjects }) {
+export default function ProjectsPanels({projects, reloadProjects}) {
   const putProjectsEndpoint = `/project`;
   const deleteProjectsEndpoint = `/project`;
 
   const [selectedForm, setSelectedForm] = useState(0);
-  const { handleModal } = Modal.useModal();
+  const {handleModal} = Modal.useModal();
 
   const handleModify = (id) => {
     setSelectedForm(id === selectedForm ? 0 : id);
@@ -60,8 +60,13 @@ export default function ProjectsPanels({ projects, reloadProjects }) {
   const dismissModal = () => handleModal(false);
 
   const displayableattributes = [
-    { key: "ProjectID", label: "ID" },
-    { key: "ProjectDescription", label: "Description" },
+    // {key: "ProjectID", label: "ID"},
+    {key: "ProjectStartDate", label: "Start Date"},
+    {key: "ProjectEndDate", label: "End Date"},
+    {key: "ProjectStatusName", label: "Status"},
+    {key: "ProjectOverseerName", label: "Overseer"},
+    {key: "ProjectDescription", label: "Description"},
+    // {key: "Project_ProjectStatusID", label: "Status"}, add this back in when we have the status
   ];
 
   return (

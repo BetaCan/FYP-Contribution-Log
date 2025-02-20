@@ -1,17 +1,15 @@
-import { createContext, useState } from "react";
+import {createContext, useState} from "react";
 
 const UserContext = createContext({
   loggedInUser: null,
   setLoggedInUser: () => {},
 });
 
-export const UserProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState({ id: "27", name: "User 27" });
+export const UserProvider = ({children}) => {
+  const [loggedInUser, setLoggedInUser] = useState({UserID: "4"});
 
   return (
-    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>{children}</UserContext.Provider>
   );
 };
 

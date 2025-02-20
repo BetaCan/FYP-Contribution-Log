@@ -1,12 +1,12 @@
-import { useContext } from "react";
+import {useContext} from "react";
 import Form from "../../UI/Form.js";
 import useLoad from "../../api/useLoad.js";
 import UserContext from "../../../context/UserContext.js"; // Corrected import path
 
 const emptyJoinProject = {
-  ProjectID: "",
-  UserID: "",
-  UserProjectRoleID: "",
+  UserProject_UserID: "",
+  UserProject_ProjectID: "",
+  UserProject_ProjectRoleID: "",
 };
 
 export default function JoinProjectForm({
@@ -15,65 +15,69 @@ export default function JoinProjectForm({
   initialJoinProject = emptyJoinProject,
 }) {
   // Initialisation -------------------------------------------------------------------------------------------------
-  const { loggedInUser } = useContext(UserContext); // Get logged in user from context
-  const loggedInUserID = loggedInUser?.id; // Assuming the user object has an id property
+  const {loggedInUser} = useContext(UserContext); // Get logged in user from context
+  const loggedInUserID = loggedInUser?.UserID; // Assuming the user object has an id property
 
   const validation = {
     isValid: {
-      ProjectID: (id) => id !== "",
-      UserID: (id) => id !== "",
-      UserProjectRoleID: (id) => id !== "",
+      UserProject_ProjectID: (id) => id !== "",
+      UserProject_UserID: (id) => id !== "",
+      UserProject_ProjectRoleID: (id) => id !== "",
     },
     errorMessage: {
-      ProjectID: "Invalid Project ID - must not be empty",
-      UserID: "Invalid User ID - must not be empty",
-      UserProjectRoleID: "Invalid Role ID - must not be empty",
+      UserProject_ProjectID: "Invalid Project ID - must not be empty",
+      UserProject_UserID: "Invalid User ID - must not be empty",
+      UserProject_ProjectRoleID: "Invalid Role ID - must not be empty",
     },
   };
   const conformance = {
     js2html: {
-      ProjectID: (id) => (id === null ? "" : id),
-      UserID: (id) => (id === null ? "" : id),
-      UserProjectRoleID: (id) => (id === null ? "" : id),
+      UserProject_ProjectID: (id) => (id === null ? "" : id),
+      UserProject_UserID: (id) => (id === null ? "" : id),
+      UserProject_ProjectRoleID: (id) => (id === null ? "" : id),
     },
     html2js: {
-      ProjectID: (id) => (id === "" ? null : id),
-      UserID: (id) => (id === "" ? null : id),
-      UserProjectRoleID: (id) => (id === "" ? null : id),
+      UserProject_ProjectID: (id) => (id === "" ? null : id),
+      UserProject_UserID: (id) => (id === "" ? null : id),
+      UserProject_ProjectRoleID: (id) => (id === "" ? null : id),
     },
   };
 
   // State ------------------------------------------------------------------------------------------------------
   const [joinProject, errors, handleChange, handleSubmit] = Form.useForm(
-    { ...initialJoinProject, UserID: loggedInUserID }, // Set UserID from loggedInUser
+    {...initialJoinProject, UserID: loggedInUserID}, // Set UserID from loggedInUser
     conformance,
     validation,
     onCancel,
     onSubmit
   );
   const [projects, , loadingProjectsMessage] = useLoad("/projects");
-  const [userProjectRoles, , loadingUserProjectRolesMessage] = useLoad("/userprojectroles");
+  const [projectRoles, , loadingProjectRolesMessage] = useLoad("/projectroles");
 
   // View -------------------------------------------------------------------------------------------------------
   return (
     <Form onSubmit={handleSubmit} onCancel={onCancel}>
       <Form.Item
         label="Project"
-        htmlFor="ProjectID"
+        htmlFor="UserProject_ProjectID"
         advice="Please select the project you want to join"
-        error={errors.ProjectID}
+        error={errors.UserProject_ProjectID}
       >
         {!projects ? (
           <p>{loadingProjectsMessage}</p>
         ) : projects.length === 0 ? (
           <p>No records found</p>
         ) : (
-          <select name="ProjectID" value={joinProject.ProjectID} onChange={handleChange}>
+          <select
+            name="UserProject_ProjectID"
+            value={joinProject.UserProject_ProjectID}
+            onChange={handleChange}
+          >
             <option value="" disabled>
               Choose a project
             </option>
             {projects.map((project) => (
-              <option key={project.ProjectID} value={project.ProjectID}>
+              <option key={project.UserProject_ProjectID} value={project.UserProject_ProjectID}>
                 {project.ProjectName}
               </option>
             ))}
@@ -87,26 +91,26 @@ export default function JoinProjectForm({
 
       <Form.Item
         label="Role"
-        htmlFor="UserProjectRoleID"
+        htmlFor="UserProject_ProjectRoleID"
         advice="Choose your role in the project"
-        error={errors.UserProjectRoleID}
+        error={errors.UserProject_ProjectRoleID}
       >
-        {!userProjectRoles ? (
-          <p>{loadingUserProjectRolesMessage}</p>
-        ) : userProjectRoles.length === 0 ? (
+        {!projectRoles ? (
+          <p>{loadingProjectRolesMessage}</p>
+        ) : projectRoles.length === 0 ? (
           <p>No records found</p>
         ) : (
           <select
-            name="UserProjectRoleID"
-            value={joinProject.UserProjectRoleID}
+            name="UserProject_ProjectRoleID"
+            value={joinProject.UserProject_ProjectRoleID}
             onChange={handleChange}
           >
             <option value="" disabled>
               Choose a role
             </option>
-            {userProjectRoles.map((role) => (
-              <option key={role.UserProjectRoleID} value={role.UserProjectRoleID}>
-                {role.UserProjectRole}
+            {projectRoles.map((roles) => (
+              <option key={roles.UserProject_ProjectRoleID} value={roles.UserProject_ProjectRoleID}>
+                {roles.ProjectRoleName}
               </option>
             ))}
           </select>
