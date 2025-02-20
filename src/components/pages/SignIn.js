@@ -1,3 +1,5 @@
+import SignInPage from "../entities/SignIn/SignInPage";
+
 function SignIn() {
   // Properties -------------------------------------------------------------------------------------------------
 
@@ -13,8 +15,9 @@ function SignIn() {
     <div>
       <h1>SignIn</h1>
       <p>Sign in to your account here</p>
+      <SignInPage />
     </div>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;

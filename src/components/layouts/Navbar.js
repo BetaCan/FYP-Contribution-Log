@@ -40,7 +40,7 @@ function XYZ() {
       </div>
       <div className="navItem">
         <NavLink to="/components" className={getLinkStyle}>
-          Componenets
+          Components
         </NavLink>
       </div>
       <div className="navItem signIn">
