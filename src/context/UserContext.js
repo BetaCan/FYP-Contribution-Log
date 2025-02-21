@@ -6,7 +6,9 @@ const UserContext = createContext({
 });
 
 export const UserProvider = ({children}) => {
-  const [loggedInUser, setLoggedInUser] = useState({UserID: "4"});
+  const [loggedInUser, setLoggedInUser] = useState({
+    UserID: "8",
+  });
 
   return (
     <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>{children}</UserContext.Provider>

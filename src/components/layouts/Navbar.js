@@ -43,6 +43,11 @@ function XYZ() {
           Components
         </NavLink>
       </div>
+      <div className="navItem">
+        <NavLink to="/userpage" className={getLinkStyle}>
+          Profile
+        </NavLink>
+      </div>
       <div className="navItem signIn">
         <NavLink to="/signin" className={getLinkStyle}>
           SignIn
