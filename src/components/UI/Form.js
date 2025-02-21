@@ -1,9 +1,9 @@
 import Action from "./Actions.js";
 import ToolTipDecorator from "./ToolTipDecorator.js";
-import { useState } from "react";
+import {useState} from "react";
 import "./Form.scss";
 
-export default function Form({ children, onSubmit, onCancel }) {
+export default function Form({children, onSubmit, onCancel}) {
   // Intitilisation ------------------------------------------
   // Hooks ---------------------------------------------------
   // State ---------------------------------------------------
@@ -32,7 +32,7 @@ export default function Form({ children, onSubmit, onCancel }) {
   );
 }
 
-function Item({ children, label, htmlFor, advice, error }) {
+function Item({children, label, htmlFor, advice, error}) {
   // Intitilisation ------------------------------------------
   // Hooks ---------------------------------------------------
   // State ---------------------------------------------------
@@ -51,27 +51,28 @@ function Item({ children, label, htmlFor, advice, error }) {
   );
 }
 
-function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel, onSubmit) {
+function useForm(initialRecord, conformance, {isValid, errorMessage}, onCancel, onSubmit) {
   // Intitilisation ------------------------------------------
   // State ---------------------------------------------------
   const [record, setRecord] = useState(initialRecord);
   const [errors, setErrors] = useState(
-    Object.keys(initialRecord).reduce((accum, key) => ({ ...accum, [key]: null }), {})
+    Object.keys(initialRecord).reduce((accum, key) => ({...accum, [key]: null}), {})
   );
   // Context -------------------------------------------------
   // Handlers ------------------------------------------------
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     let newValue =
       conformance.html2js && conformance.html2js[name] ? conformance.html2js[name](value) : value;
     if (name === "ProjectStartDate" || name === "ProjectEndDate") {
       newValue = new Date(newValue);
     }
-    setRecord({ ...record, [name]: newValue });
-    setErrors({ ...errors, [name]: isValid[name](newValue) ? null : errorMessage[name] });
+    setRecord({...record, [name]: newValue});
+    setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]});
   };
 
   const isValidRecord = (record) => {
+    console.log("Form.isValidRecord");
     let isRecordValid = true;
 
     const newErrors = {
@@ -85,6 +86,13 @@ function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel
         newErrors[key] = errorMessage[key];
         isRecordValid = false;
       }
+      console.log(
+        "Form.isValidRecord",
+        key,
+        record[key],
+        isValid[key](record[key]),
+        newErrors[key]
+      );
     });
 
     setErrors(newErrors);
@@ -92,8 +100,9 @@ function useForm(initialRecord, conformance, { isValid, errorMessage }, onCancel
   };
 
   const handleSubmit = () => {
+    console.log("Form.handleSubmit");
     isValidRecord(record) && onSubmit(record) && onCancel();
-    setErrors({ ...errors });
+    setErrors({...errors});
   };
   // View ----------------------------------------------------
   return [record, errors, handleChange, handleSubmit];

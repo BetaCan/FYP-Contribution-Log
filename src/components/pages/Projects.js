@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import API from "../api/API.js";
-import { ActionTray, ActionAdd } from "../UI/Actions.js";
-import ToolTipDecorator from "../UI/ToolTipDecorator.js";
+// import { ActionTray, ActionAdd } from "../UI/Actions.js";
+// import ToolTipDecorator from "../UI/ToolTipDecorator.js";
 import UPProjectsPanels from "../entities/projects/UPProjectsPanels.js";
-import ProjectForm from "../entities/projects/ProjectForm.js";
+// import ProjectForm from "../entities/projects/ProjectForm.js";
 
 export default function Projects() {
   // State ------------------------------------------------------------------------------------------------------
