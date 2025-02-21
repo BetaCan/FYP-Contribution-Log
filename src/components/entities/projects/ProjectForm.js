@@ -27,7 +27,7 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
     },
   };
 
-  const conformance = [""];
+  const conformance = ["ProjectStatusID"];
 
   // State ------------------------------------------------------------------------------------------------------
   const [project, errors, handleChange, handleSubmit] = Form.useForm(
