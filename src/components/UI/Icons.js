@@ -1,6 +1,6 @@
-import "./Icons.scss"
+import './Icons.scss'
 
-export default function Icon({ children }) {
+export default function Icon({children}) {
   return <div className="Icon">{children}</div>
 }
 
@@ -29,10 +29,7 @@ function Cross() {
 function Database() {
   return (
     <Icon className="IconDatabase">
-      <img
-        src="https://img.icons8.com/ios-filled/50/000000/database.png"
-        alt="Database icon"
-      />
+      <img src="https://img.icons8.com/ios-filled/50/000000/database.png" alt="Database icon" />
     </Icon>
   )
 }
@@ -62,10 +59,7 @@ function Group() {
 function List() {
   return (
     <Icon className="IconList">
-      <img
-        src="https://img.icons8.com/material-sharp/24/undefined/list.png"
-        alt="List icon"
-      />
+      <img src="https://img.icons8.com/material-sharp/24/undefined/list.png" alt="List icon" />
     </Icon>
   )
 }
@@ -73,10 +67,7 @@ function List() {
 function Pen() {
   return (
     <Icon className="IconPen">
-      <img
-        src="https://img.icons8.com/ios-glyphs/30/undefined/edit--v1.png"
-        alt="Pen icon"
-      />
+      <img src="https://img.icons8.com/ios-glyphs/30/undefined/edit--v1.png" alt="Pen icon" />
     </Icon>
   )
 }
@@ -106,10 +97,7 @@ function RedCross() {
 function RedHeart() {
   return (
     <Icon className="IconRedHeart">
-      <img
-        src="https://img.icons8.com/emoji/48/undefined/red-heart.png"
-        alt="Red heart icon"
-      />
+      <img src="https://img.icons8.com/emoji/48/undefined/red-heart.png" alt="Red heart icon" />
     </Icon>
   )
 }
@@ -128,10 +116,7 @@ function Tick() {
 function Trash() {
   return (
     <Icon className="IconTrash">
-      <img
-        src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png"
-        alt="Trash icon"
-      />
+      <img src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png" alt="Trash icon" />
     </Icon>
   )
 }
@@ -142,6 +127,17 @@ function Acknowledge() {
       All icons by&nbsp;
       <a href="https://icons8.com">Icons8</a>
     </p>
+  )
+}
+
+function Eye() {
+  return (
+    <Icon className="IconEye">
+      <img
+        src="https://img.icons8.com/material-outlined/24/undefined/visible--v1.png"
+        alt="Eye icon"
+      />
+    </Icon>
   )
 }
 
@@ -162,3 +158,4 @@ Icon.RedHeart = RedHeart
 Icon.Tick = Tick
 Icon.Trash = Trash
 Icon.Acknowledge = Acknowledge
+Icon.Eye = Eye
