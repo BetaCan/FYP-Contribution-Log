@@ -1,58 +1,67 @@
-import {useContext} from "react";
-import Form from "../../UI/Form.js";
-import useLoad from "../../api/useLoad.js";
-import UserContext from "../../../context/UserContext.js"; // Corrected import path
+import {useContext} from 'react'
+import Form from '../../UI/Form.js'
+import useLoad from '../../api/useLoad.js'
+import UserContext from '../../../context/UserContext.js'
 
 const emptyJoinProject = {
-  UserProject_UserID: "",
-  UserProject_ProjectID: "",
-  UserProject_ProjectRoleID: "",
-};
+  UserProject_UserID: '',
+  UserProject_ProjectID: '',
+  UserProject_ProjectRoleID: '',
+}
 
 export default function JoinProjectForm({
   onCancel,
   onSubmit,
   initialJoinProject = emptyJoinProject,
 }) {
-  // Initialisation -------------------------------------------------------------------------------------------------
-  const {loggedInUser} = useContext(UserContext); // Get logged in user from context
-  const loggedInUserID = loggedInUser?.UserID; // Assuming the user object has an id property
+  // Get logged in user from context
+  const {loggedInUser} = useContext(UserContext)
+  const loggedInUserID = loggedInUser?.UserID
 
+  // Initialisation -------------------------------------------------------------------------------------------------
   const validation = {
     isValid: {
-      UserProject_ProjectID: (id) => id !== "",
-      UserProject_UserID: (id) => id !== "",
-      UserProject_ProjectRoleID: (id) => id !== "",
+      UserProject_ProjectID: (id) => id !== '',
+      UserProject_UserID: (id) => id !== '',
+      UserProject_ProjectRoleID: (id) => id !== '',
     },
     errorMessage: {
-      UserProject_ProjectID: "Invalid Project ID - must not be empty",
-      UserProject_UserID: "Invalid User ID - must not be empty",
-      UserProject_ProjectRoleID: "Invalid Role ID - must not be empty",
+      UserProject_ProjectID: 'Invalid Project ID - must not be empty',
+      UserProject_UserID: 'Invalid User ID - must not be empty',
+      UserProject_ProjectRoleID: 'Invalid Role ID - must not be empty',
     },
-  };
+  }
   const conformance = {
     js2html: {
-      UserProject_ProjectID: (id) => (id === null ? "" : id),
-      UserProject_UserID: (id) => (id === null ? "" : id),
-      UserProject_ProjectRoleID: (id) => (id === null ? "" : id),
+      UserProject_ProjectID: (id) => (id === null ? '' : id),
+      UserProject_UserID: (id) => (id === null ? '' : id),
+      UserProject_ProjectRoleID: (id) => (id === null ? '' : id),
     },
     html2js: {
-      UserProject_ProjectID: (id) => (id === "" ? null : id),
-      UserProject_UserID: (id) => (id === "" ? null : id),
-      UserProject_ProjectRoleID: (id) => (id === "" ? null : id),
+      UserProject_ProjectID: (id) => (id === '' ? null : id),
+      UserProject_UserID: (id) => (id === '' ? null : id),
+      UserProject_ProjectRoleID: (id) => (id === '' ? null : id),
     },
-  };
+  }
 
   // State ------------------------------------------------------------------------------------------------------
+  // Set UserProject_UserID from loggedInUser
+  const joinProjectWithUser = {
+    ...initialJoinProject,
+    UserProject_UserID: loggedInUserID,
+  }
+
   const [joinProject, errors, handleChange, handleSubmit] = Form.useForm(
-    {...initialJoinProject, UserID: loggedInUserID}, // Set UserID from loggedInUser
+    joinProjectWithUser,
     conformance,
     validation,
     onCancel,
     onSubmit
-  );
-  const [projects, , loadingProjectsMessage] = useLoad("/projects");
-  const [projectRoles, , loadingProjectRolesMessage] = useLoad("/projectroles");
+  )
+
+  // Load projects and roles from API
+  const [projects, , loadingProjectsMessage] = useLoad('/projects')
+  const [projectRoles, , loadingProjectRolesMessage] = useLoad('/projectroles')
 
   // View -------------------------------------------------------------------------------------------------------
   return (
@@ -77,7 +86,7 @@ export default function JoinProjectForm({
               Choose a project
             </option>
             {projects.map((project) => (
-              <option key={project.UserProject_ProjectID} value={project.UserProject_ProjectID}>
+              <option key={project.ProjectID} value={project.ProjectID}>
                 {project.ProjectName}
               </option>
             ))}
@@ -85,8 +94,18 @@ export default function JoinProjectForm({
         )}
       </Form.Item>
 
-      <Form.Item label="User ID" htmlFor="UserID" advice="Your User ID" error={errors.UserID}>
-        <input type="text" name="UserID" value={loggedInUserID} readOnly />
+      <Form.Item
+        label="User ID"
+        htmlFor="UserProject_UserID"
+        advice="Your User ID"
+        error={errors.UserProject_UserID}
+      >
+        <input
+          type="text"
+          name="UserProject_UserID"
+          value={joinProject.UserProject_UserID}
+          readOnly
+        />
       </Form.Item>
 
       <Form.Item
@@ -108,14 +127,14 @@ export default function JoinProjectForm({
             <option value="" disabled>
               Choose a role
             </option>
-            {projectRoles.map((roles) => (
-              <option key={roles.UserProject_ProjectRoleID} value={roles.UserProject_ProjectRoleID}>
-                {roles.ProjectRoleName}
+            {projectRoles.map((role) => (
+              <option key={role.ProjectRoleID} value={role.ProjectRoleID}>
+                {role.ProjectRoleName}
               </option>
             ))}
           </select>
         )}
       </Form.Item>
     </Form>
-  );
+  )
 }

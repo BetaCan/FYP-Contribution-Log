@@ -1,7 +1,7 @@
-import Action from "./Actions.js";
-import ToolTipDecorator from "./ToolTipDecorator.js";
-import {useState} from "react";
-import "./Form.scss";
+import Action from './Actions.js'
+import ToolTipDecorator from './ToolTipDecorator.js'
+import {useState} from 'react'
+import './Form.scss'
 
 export default function Form({children, onSubmit, onCancel}) {
   // Intitilisation ------------------------------------------
@@ -10,11 +10,11 @@ export default function Form({children, onSubmit, onCancel}) {
   // Context -------------------------------------------------
   // Handlers ------------------------------------------------
   const handleSubmit = () => {
-    onSubmit();
-  };
+    onSubmit()
+  }
   const handleCancel = () => {
-    onCancel();
-  };
+    onCancel()
+  }
   // View ----------------------------------------------------
   return (
     <form className="BorderedForm">
@@ -29,7 +29,7 @@ export default function Form({children, onSubmit, onCancel}) {
         </ToolTipDecorator>
       </Action.Tray>
     </form>
-  );
+  )
 }
 
 function Item({children, label, htmlFor, advice, error}) {
@@ -48,68 +48,62 @@ function Item({children, label, htmlFor, advice, error}) {
       {children}
       {error && <p className="FormError">{error}</p>}
     </div>
-  );
+  )
 }
 
 function useForm(initialRecord, conformance, {isValid, errorMessage}, onCancel, onSubmit) {
   // Intitilisation ------------------------------------------
   // State ---------------------------------------------------
-  const [record, setRecord] = useState(initialRecord);
+  const [record, setRecord] = useState(initialRecord)
   const [errors, setErrors] = useState(
     Object.keys(initialRecord).reduce((accum, key) => ({...accum, [key]: null}), {})
-  );
+  )
   // Context -------------------------------------------------
   // Handlers ------------------------------------------------
   const handleChange = (event) => {
-    const {name, value} = event.target;
-    let newValue =
-      conformance.html2js && conformance.html2js[name] ? conformance.html2js[name](value) : value;
-    if (name === "ProjectStartDate" || name === "ProjectEndDate") {
-      newValue = new Date(newValue);
-    }
-    setRecord({...record, [name]: newValue});
-    setErrors({...errors, [name]: isValid[name](newValue) ? null : errorMessage[name]});
-  };
+    const {name, value} = event.target
+    const newValue = conformance.html2js[name](value)
+    console.log(`[handleChange] name: ${name}, value: ${value}, newValue: ${newValue}`)
+    setRecord({...record, [name]: newValue})
+    setErrors({
+      ...errors,
+      [name]: isValid[name](newValue) ? null : errorMessage[name],
+    })
+  }
 
   const isValidRecord = (record) => {
-    console.log("Form.isValidRecord");
-    let isRecordValid = true;
+    console.log('Form.isValidRecord')
+    let isRecordValid = true
 
     const newErrors = {
       ...errors,
-    };
+    }
 
     Object.keys(isValid).forEach((key) => {
       if (isValid[key](record[key])) {
-        newErrors[key] = null;
+        newErrors[key] = null
       } else {
-        newErrors[key] = errorMessage[key];
-        isRecordValid = false;
+        newErrors[key] = errorMessage[key]
+        isRecordValid = false
       }
-      console.log(
-        "Form.isValidRecord",
-        key,
-        record[key],
-        isValid[key](record[key]),
-        newErrors[key]
-      );
-    });
+      console.log('Form.isValidRecord', key, record[key], isValid[key](record[key]), newErrors[key])
+    })
 
-    setErrors(newErrors);
-    return isRecordValid;
-  };
+    setErrors(newErrors)
+    return isRecordValid
+  }
 
   const handleSubmit = () => {
-    console.log("Form.handleSubmit");
-    isValidRecord(record) && onSubmit(record) && onCancel();
-    setErrors({...errors});
-  };
+    console.log('Form.handleSubmit')
+    isValidRecord(record) && onSubmit(record) && onCancel()
+    setErrors({...errors})
+  }
   // View ----------------------------------------------------
-  return [record, errors, handleChange, handleSubmit];
+  return [record, errors, handleChange, handleSubmit]
 }
 
 // ----------------------------------------
 //  Compose Form Object ////////////////////
 // ----------------------------------------
-Form.Item = Item;
-Form.useForm = useForm;
+Form.Item = Item
+Form.useForm = useForm

@@ -1,42 +1,89 @@
-import Form from "../../UI/Form.js";
+import {useContext} from 'react'
+import Form from '../../UI/Form.js'
+import UserContext from '../../../context/UserContext.js'
+import projectService from '../../utils/ProjectService.js'
 
 const emptyProject = {
-  ProjectName: "Dummy Project",
-  ProjectStartDate: new Date("2024-11-15"),
-  ProjectEndDate: new Date("2024-12-15"),
-  Project_ProjectStatusID: "Active",
-  ProjectDescription: "ipsum dolor sit amet, consectetur adipiscing elit",
-};
+  ProjectName: 'Dummy Project',
+  ProjectStartDate: new Date('2024-11-15'),
+  ProjectEndDate: new Date('2024-12-15'),
+  Project_ProjectStatusID: '',
+  ProjectDescription: 'ipsum dolor sit amet, consectetur adipiscing elit',
+  Project_ProjectOverseerID: '',
+}
 
 export default function ProjectForm({onCancel, onSubmit, initialProject = emptyProject}) {
+  // Get the logged in user context
+  const {loggedInUser} = useContext(UserContext)
+  const loggedInUserID = loggedInUser?.UserID
+
   // Initialisation -------------------------------------------------------------------------------------------------
   const validation = {
     isValid: {
       ProjectName: (name) => name.length > 5,
       ProjectStartDate: (date) => !isNaN(new Date(date).getTime()),
       ProjectEndDate: (date) => !isNaN(new Date(date).getTime()),
-      Project_ProjectStatusID: (status) => ["In Progress", "Completed", "Active"].includes(status),
+      Project_ProjectStatusID: (id) => ['1', '2', '3'].includes(id),
       ProjectDescription: (description) => description.length > 20,
+      Project_ProjectOverseerID: (id) => id !== '',
     },
     errorMessage: {
-      ProjectName: "Invalid name - must be at least 5 characters",
-      ProjectDescription: "Invalid description - must be at least 20 characters",
-      ProjectStartDate: "Invalid start date - must be a valid date",
-      ProjectEndDate: "Invalid end date - must be a valid date",
+      ProjectName: 'Invalid name - must be at least 5 characters',
+      ProjectDescription: 'Invalid description - must be at least 20 characters',
+      ProjectStartDate: 'Invalid start date - must be a valid date',
+      ProjectEndDate: 'Invalid end date - must be a valid date',
       Project_ProjectStatusID: "Invalid status - must be 'In Progress', 'Completed', or 'Active'",
+      Project_ProjectOverseerID: 'Invalid overseer ID - must not be empty',
     },
-  };
+  }
 
-  const conformance = ["ProjectStatusID"];
+  const conformance = {
+    js2html: {
+      ProjectName: (name) => name,
+      ProjectStartDate: (date) => date.toISOString().slice(0, 10),
+      ProjectEndDate: (date) => date.toISOString().slice(0, 10),
+      Project_ProjectStatusID: (id) => (id === null ? '' : id),
+      ProjectDescription: (description) => description,
+      Project_ProjectOverseerID: (id) => (id === null ? '' : id),
+    },
+    html2js: {
+      ProjectName: (name) => name,
+      ProjectStartDate: (date) => new Date(date),
+      ProjectEndDate: (date) => new Date(date),
+      Project_ProjectStatusID: (id) => (id === '' ? null : id),
+      ProjectDescription: (description) => description,
+      Project_ProjectOverseerID: (id) => (id === '' ? null : id),
+    },
+  }
 
   // State ------------------------------------------------------------------------------------------------------
+  // Merge the initialProject with the logged in user ID as the overseer
+  const projectWithOverseer = {
+    ...initialProject,
+    Project_ProjectOverseerID: loggedInUserID,
+  }
+
+  // Simplified submit handler that uses the project service
+  const handleFormSubmit = async (formData) => {
+    // Use the service to handle both project creation and user assignment
+    const result = await projectService.createProjectWithAssignment(formData, loggedInUserID)
+
+    if (result.success) {
+      onSubmit(result.project)
+      return true // Allow form to close
+    } else {
+      alert(result.error)
+      return false // Keep form open
+    }
+  }
+
   const [project, errors, handleChange, handleSubmit] = Form.useForm(
-    initialProject,
+    projectWithOverseer,
     conformance,
     validation,
     onCancel,
-    onSubmit
-  );
+    handleFormSubmit
+  )
 
   // View -------------------------------------------------------------------------------------------------------
   return (
@@ -73,7 +120,7 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
         <input
           type="date"
           name="ProjectStartDate"
-          value={project.ProjectStartDate}
+          value={project.ProjectStartDate.toISOString().slice(0, 10)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -87,7 +134,7 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
         <input
           type="date"
           name="ProjectEndDate"
-          value={project.ProjectEndDate}
+          value={project.ProjectEndDate.toISOString().slice(0, 10)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -103,16 +150,21 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
           value={project.Project_ProjectStatusID}
           onChange={handleChange}
         >
-          <option value="0" disabled>
+          <option value="" disabled>
             Choose a status
           </option>
-          {["In Progress", "Completed", "Active"].map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
+          <option value="1">In Progress</option>
+          <option value="2">Completed</option>
+          <option value="3">Active</option>
         </select>
       </Form.Item>
+
+      {/* Hidden field for Project Overseer ID */}
+      <input
+        type="hidden"
+        name="Project_ProjectOverseerID"
+        value={project.Project_ProjectOverseerID}
+      />
     </Form>
-  );
+  )
 }

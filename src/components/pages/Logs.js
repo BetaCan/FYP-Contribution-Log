@@ -1,36 +1,36 @@
-// import {useState, useEffect} from "react";
-// import API from "../api/API.js";
-// import "./Logs.scss"; // Import the SCSS file for styling
+// import {useState, useEffect} from 'react'
+// import API from '../api/API.js'
+// import './Logs.scss' // Import the SCSS file for styling
 
 // export default function Logs() {
 //   // State ------------------------------------------------------------------------------------------------------
-//   const [logs, setLogs] = useState(null);
-//   const [loadingMessage, setLoadingMessage] = useState("Loading records...");
+//   const [logs, setLogs] = useState(null)
+//   const [loadingMessage, setLoadingMessage] = useState('Loading records...')
 
 //   const loadLogs = async () => {
-//     const getLogsEndpoint = `/projectlogs`;
-//     const response = await API.get(getLogsEndpoint);
+//     const getLogsEndpoint = `/projectlogs`
+//     const response = await API.get(getLogsEndpoint)
 //     if (response.isSuccess) {
-//       setLogs(response.result);
+//       setLogs(response.result)
 //     } else {
-//       setLoadingMessage(response.message);
+//       setLoadingMessage(response.message)
 //     }
-//   };
+//   }
 
 //   useEffect(() => {
-//     loadLogs();
-//   }, []);
+//     loadLogs()
+//   }, [])
 
 //   if (!logs) {
-//     return <p>{loadingMessage}</p>;
+//     return <p>{loadingMessage}</p>
 //   }
 
 //   const displayableAttributes = [
-//     {key: "LogID", label: "ID"},
-//     {key: "LogTitle", label: "Title"},
+//     {key: 'LogID', label: 'ID'},
+//     {key: 'LogTitle', label: 'Title'},
 //     // {key: "LogDate", label: "Date"},
-//     {key: "LogDescription", label: "Description"},
-//   ];
+//     {key: 'LogDescription', label: 'Description'},
+//   ]
 
 //   return (
 //     <div className="logs-container">
@@ -54,5 +54,5 @@
 //         </tbody>
 //       </table>
 //     </div>
-//   );
+//   )
 // }

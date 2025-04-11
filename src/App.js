@@ -10,6 +10,7 @@ import PageNotFound from "./components/pages/404";
 import Logs from "./components/pages/Logs";
 import Components from "./components/pages/Components";
 import theme from "./components/Styles/Theme";
+import UserPage from "./components/pages/UserPage";
 
 import "./App.scss";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/components" element={<Components />} />
             <Route path="/logs" element={<Logs />} />
+            <Route path="/userpage" element={<UserPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Layout>
