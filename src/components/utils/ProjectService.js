@@ -1,3 +1,5 @@
+// THIS FILE IS AI CODED :( as i couldnt get the conformance to work correctly with the backend
+
 // projectService.js
 import API from '../api/API.js'
 
