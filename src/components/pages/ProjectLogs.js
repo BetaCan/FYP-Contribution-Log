@@ -166,14 +166,15 @@ export default function ProjectLogs() {
               </FormControl>
 
               {/* Add Sprint Button */}
-              <IconButton
+              <Button
+                variant="contained"
                 color="primary"
-                aria-label="add sprint"
+                startIcon={<AddIcon />}
                 onClick={() => setSprintFormOpen(true)}
                 sx={{mr: 1}}
               >
-                <AddIcon /> Sprint
-              </IconButton>
+                Add Sprint
+              </Button>
 
               {/* Add Log Button */}
               <Button
