@@ -28,7 +28,6 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/components" element={<Components />} />
             <Route path="/logs" element={<ProjectLogs />} />
-            <Route path="/alllogs" element={<Logs />} />
             <Route path="/userpage" element={<UserPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
