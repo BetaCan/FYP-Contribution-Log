@@ -8,7 +8,6 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import Paper from '@mui/material/Paper'
-import Chip from '@mui/material/Chip'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
@@ -22,6 +21,7 @@ import TeamTable from '../entities/projectlogs/TeamTable'
 import ProjectLogForm from '../entities/projectlogs/ProjectLogForm'
 import SprintForm from '../entities/projectlogs/SprintForm'
 import UserContext from '../../context/UserContext.js'
+import EngagementMetrics from '../entities/projectlogs/EngagementMetrics.js'
 
 export default function ProjectLogs() {
   const location = useLocation()
@@ -136,16 +136,8 @@ export default function ProjectLogs() {
   }
 
   const handleLogAdded = (newLog) => {
-    // Add log type name to the new log
-    const logType = logTypes.find((type) => type.TypeID === newLog.Log_LogTypeID)
-    const newLogWithTypeName = {
-      ...newLog,
-      LogTypeName: logType ? logType.TypeName : `Type ${newLog.Log_LogTypeID}`,
-    }
-
-    // Update logs and select the new log
-    setLogs((prevLogs) => [newLogWithTypeName, ...prevLogs])
-    setSelectedLog(newLogWithTypeName)
+    // Refresh logs instead of manual state update
+    refreshLogs()
   }
 
   const handleSprintAdded = (newSprint) => {
@@ -166,15 +158,8 @@ export default function ProjectLogs() {
     try {
       const response = await API.delete(`/projectlogs/${selectedLog.LogID}`)
       if (response.isSuccess) {
-        // After log deletion, set selected log to the first available log
-        if (logs.length > 1) {
-          const remainingLogs = logs.filter((log) => log.LogID !== selectedLog.LogID)
-          setSelectedLog(remainingLogs[0])
-          setLogs(remainingLogs)
-        } else {
-          setSelectedLog(null)
-          setLogs([])
-        }
+        // Refresh logs instead of manual state update
+        refreshLogs()
         setDeleteDialogOpen(false)
       } else {
         console.error('Failed to delete log:', response.message)
@@ -225,14 +210,7 @@ export default function ProjectLogs() {
 
   // Render the engagement view
   const renderEngagementView = () => {
-    return (
-      <Paper sx={{p: 4, textAlign: 'center'}}>
-        <Typography variant="h6">Engagement Metrics</Typography>
-        <Typography variant="body2" color="textSecondary" sx={{mt: 2}}>
-          Engagement metrics will be implemented in future updates.
-        </Typography>
-      </Paper>
-    )
+    return <EngagementMetrics projectId={project.ProjectID} selectedSprint={selectedSprint} />
   }
 
   // Render the overview (log detail) view
@@ -455,6 +433,8 @@ export default function ProjectLogs() {
         onClose={() => {
           setLogFormOpen(false)
           setEditMode(false)
+          // Refresh logs when form is closed (especially important after editing)
+          refreshLogs()
         }}
         sprintId={selectedSprint}
         onLogAdded={handleLogAdded}
