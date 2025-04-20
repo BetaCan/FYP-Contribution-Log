@@ -5,6 +5,7 @@ import DataTable from '../../UI-MaterialUINEW/data-table'
 import ScoreIndicator from '../../UI-MaterialUINEW/score-indicator'
 import SectionContainer from '../../UI-MaterialUINEW/section-container'
 import AttendanceTracker from '../projectlogs/AttendanceTracker'
+import TaskCompletionTracker from './TaskCompletionTracker'
 import {Typography} from '@mui/material'
 
 /**
@@ -143,6 +144,13 @@ export default function EngagementMetrics({projectId}) {
     fetchFirstSprint()
   }, [projectId])
 
+  /**
+   * TaskCompletionsTab - Task completion tracking
+   */
+  function TaskCompletionsTab({projectId, selectedSprint}) {
+    return <TaskCompletionTracker sprintId={selectedSprint} />
+  }
+
   // Define tabs configuration
   const tabs = [
     {
@@ -152,6 +160,10 @@ export default function EngagementMetrics({projectId}) {
       ) : (
         <Typography>Loading sprint data...</Typography>
       ),
+    },
+    {
+      label: 'Task Completion',
+      content: <TaskCompletionsTab projectId={projectId} selectedSprint={selectedSprint} />,
     },
     {
       label: 'Team Metrics',
