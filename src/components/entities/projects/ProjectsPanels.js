@@ -1,53 +1,59 @@
-import API from "../../api/API.js";
-import Modal from "../../UI/Modal.js";
-import Panel from "../../UI/Panel.js";
-import ObjectTable from "../../UI/ObjectTable.js";
-import Action from "../../UI/Actions.js";
-import ToolTipDecorator from "../../UI/ToolTipDecorator.js";
-import ProjectForm from "./ProjectForm.js";
-import {useState} from "react";
+import API from '../../api/API.js'
+import Modal from '../../UI/Modal.js'
+import Panel from '../../UI/Panel.js'
+import ObjectTable from '../../UI/ObjectTable.js'
+import Action from '../../UI/Actions.js'
+import ToolTipDecorator from '../../UI/ToolTipDecorator.js'
+import ProjectForm from './ProjectForm.js'
+import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 export default function ProjectsPanels({projects, reloadProjects}) {
-  const putProjectsEndpoint = `/project`;
-  const deleteProjectsEndpoint = `/project`;
+  const putProjectsEndpoint = `/project`
+  const deleteProjectsEndpoint = `/project`
 
-  const [selectedForm, setSelectedForm] = useState(0);
-  const {handleModal} = Modal.useModal();
+  const [selectedForm, setSelectedForm] = useState(0)
+  const {handleModal} = Modal.useModal()
+  const navigate = useNavigate()
 
   const handleModify = (id) => {
-    setSelectedForm(id === selectedForm ? 0 : id);
-  };
+    setSelectedForm(id === selectedForm ? 0 : id)
+  }
 
   const handleDelete = async (id) => {
-    dismissModal();
-    const response = await API.delete(`${deleteProjectsEndpoint}/${id}`);
-    response.isSuccess ? reloadProjects() : showErrorModal("Delete failed", response.message);
-  };
+    dismissModal()
+    const response = await API.delete(`${deleteProjectsEndpoint}/${id}`)
+    response.isSuccess ? reloadProjects() : showErrorModal('Delete failed', response.message)
+  }
 
   const handleSubmit = async (project) => {
-    const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project);
+    const response = await API.put(`${putProjectsEndpoint}/${project.ProjectID}`, project)
     if (response.isSuccess) {
-      setSelectedForm(0);
-      reloadProjects();
+      setSelectedForm(0)
+      reloadProjects()
     } else {
-      console.error("Failed to update project:", response.message);
+      console.error('Failed to update project:', response.message)
     }
-  };
+  }
 
   const handleCancel = () => {
-    setSelectedForm(0);
-  };
+    setSelectedForm(0)
+  }
+
+  const handleViewLogs = (project) => {
+    navigate('/logs', {state: {project}})
+  }
 
   const showDeleteModal = (id) =>
     handleModal({
       show: true,
-      title: "Alerts!",
+      title: 'Alerts!',
       content: <p>Are you sure you want to delete this record project?</p>,
       actions: [
         <Action.Yes showText onClick={() => handleDelete(id)} />,
         <Action.No showText onClick={dismissModal} />,
       ],
-    });
+    })
 
   const showErrorModal = (title, message) =>
     handleModal({
@@ -55,19 +61,19 @@ export default function ProjectsPanels({projects, reloadProjects}) {
       title: title,
       content: <p>{message}</p>,
       actions: [<Action.Close showText onClick={dismissModal} />],
-    });
+    })
 
-  const dismissModal = () => handleModal(false);
+  const dismissModal = () => handleModal(false)
 
   const displayableattributes = [
     // {key: "ProjectID", label: "ID"},
-    {key: "ProjectStartDate", label: "Start Date"},
-    {key: "ProjectEndDate", label: "End Date"},
-    {key: "ProjectStatusName", label: "Status"},
-    {key: "ProjectOverseerName", label: "Overseer"},
-    {key: "ProjectDescription", label: "Description"},
+    {key: 'ProjectStartDate', label: 'Start Date'},
+    {key: 'ProjectEndDate', label: 'End Date'},
+    {key: 'ProjectStatusName', label: 'Status'},
+    {key: 'ProjectOverseerName', label: 'Overseer'},
+    {key: 'ProjectDescription', label: 'Description'},
     // {key: "Project_ProjectStatusID", label: "Status"}, add this back in when we have the status
-  ];
+  ]
 
   return (
     <div>
@@ -80,6 +86,14 @@ export default function ProjectsPanels({projects, reloadProjects}) {
             </Panel.Static>
 
             <Action.Tray>
+              <ToolTipDecorator message={`View logs for ${project.ProjectName}`}>
+                {/* Using ListAll instead of View since it's already available */}
+                <Action.ListAll
+                  showText
+                  onClick={() => handleViewLogs(project)}
+                  buttonText="View Logs"
+                />
+              </ToolTipDecorator>
               <ToolTipDecorator message={`Modify ${project.ProjectName} Project`}>
                 <Action.Modify
                   showText
@@ -107,5 +121,5 @@ export default function ProjectsPanels({projects, reloadProjects}) {
         ))}
       </Panel.Container>
     </div>
-  );
+  )
 }
