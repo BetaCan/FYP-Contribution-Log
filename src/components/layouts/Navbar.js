@@ -4,83 +4,82 @@ import UserContext from '../../context/UserContext'
 import './Navbar.scss'
 
 function Navbar() {
-  // Properties -------------------------------------------------------------------------------------------------
-
-  // Hooks ------------------------------------------------------------------------------------------------------
-
-  // Context ----------------------------------------------------------------------------------------------------
+  // Context
   const {loggedInUser, setLoggedInUser} = useContext(UserContext)
 
-  // Methods ----------------------------------------------------------------------------------------------------
-  const getLinkStyle = ({isActive}) => (isActive ? 'nav.Selected' : null)
-
+  // Methods
   const handleLogout = () => {
     setLoggedInUser(null)
   }
 
-  // View -------------------------------------------------------------------------------------------------------
   return (
-    <nav>
-      {/* Home link - visible to all (even without login) */}
-      <div className="navItem">
-        <NavLink to="/" className={getLinkStyle}>
-          Home
-        </NavLink>
-      </div>
-
-      {/* Links only visible when logged in */}
-      {loggedInUser && (
-        <>
-          {/* Projects link - only visible to Admins */}
-          {loggedInUser.Role === 'Admin' && (
-            <div className="navItem">
-              <NavLink to="/projects" className={getLinkStyle}>
-                Projects
-              </NavLink>
-            </div>
-          )}
-
-          {/* My Projects link - visible to all logged in users */}
-          <div className="navItem">
-            <NavLink to="/myprojects" className={getLinkStyle}>
-              My Projects
+    <nav className="main-nav">
+      <div className="nav-content">
+        <div className="nav-links">
+          {/* Home link - visible to all */}
+          <div className="nav-item">
+            <NavLink to="/" className={({isActive}) => (isActive ? 'active' : '')}>
+              Home
             </NavLink>
           </div>
 
-          {/* Components link - only visible to Admins */}
-          {loggedInUser.Role === 'Admin' && (
-            <div className="navItem">
-              <NavLink to="/components" className={getLinkStyle}>
-                Components
+          {/* Links only visible when logged in */}
+          {loggedInUser && (
+            <>
+              {/* Projects link - only visible to Admins */}
+              {loggedInUser.Role === 'Admin' && (
+                <div className="nav-item">
+                  <NavLink to="/projects" className={({isActive}) => (isActive ? 'active' : '')}>
+                    Projects
+                  </NavLink>
+                </div>
+              )}
+
+              {/* My Projects link - visible to all logged in users */}
+              <div className="nav-item">
+                <NavLink to="/myprojects" className={({isActive}) => (isActive ? 'active' : '')}>
+                  My Projects
+                </NavLink>
+              </div>
+
+              {/* Components link - only visible to Admins */}
+              {loggedInUser.Role === 'Admin' && (
+                <div className="nav-item">
+                  <NavLink to="/components" className={({isActive}) => (isActive ? 'active' : '')}>
+                    Components
+                  </NavLink>
+                </div>
+              )}
+
+              {/* Profile link - visible to all logged in users */}
+              <div className="nav-item">
+                <NavLink to="/userpage" className={({isActive}) => (isActive ? 'active' : '')}>
+                  Profile
+                </NavLink>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* User status section */}
+        <div className="user-section">
+          {loggedInUser ? (
+            <div className="user-info">
+              <span className="user-name">
+                {loggedInUser.UserFirstName} ({loggedInUser.Role})
+              </span>
+              <button onClick={handleLogout} className="logout-button">
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="nav-item sign-in">
+              <NavLink to="/signin" className={({isActive}) => (isActive ? 'active' : '')}>
+                Sign In
               </NavLink>
             </div>
           )}
-
-          {/* Profile link - visible to all logged in users */}
-          <div className="navItem">
-            <NavLink to="/userpage" className={getLinkStyle}>
-              Profile
-            </NavLink>
-          </div>
-        </>
-      )}
-
-      {/* Login/logout section */}
-      <div className="navItem signIn">
-        {loggedInUser ? (
-          <div className="userInfo">
-            <span className="userName">
-              {loggedInUser.UserFirstName} ({loggedInUser.Role})
-            </span>
-            <button onClick={handleLogout} className="logoutButton">
-              Logout
-            </button>
-          </div>
-        ) : (
-          <NavLink to="/signin" className={getLinkStyle}>
-            SignIn
-          </NavLink>
-        )}
+        </div>
       </div>
     </nav>
   )

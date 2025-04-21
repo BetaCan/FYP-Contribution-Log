@@ -1,27 +1,19 @@
-import Modal from "../UI/Modal.js"
-import Header from "./Header"
-import Navbar from "./Navbar"
-import Footer from "./Footer"
+import Modal from '../UI/Modal.js'
+import Header from './Header'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
-import "./Layout.scss"
+import './Layout.scss'
 
 function Layout(props) {
-  // Properties -------------------------------------------------------------------------------------------------
-
-  // Hooks ------------------------------------------------------------------------------------------------------
-
-  // Context ----------------------------------------------------------------------------------------------------
-
-  // Methods ----------------------------------------------------------------------------------------------------
-
-  // View -------------------------------------------------------------------------------------------------------
-
   return (
     <Modal.Provider>
-      <div className="centrepane">
+      <div className="app-layout">
         <Header />
         <Navbar />
-        <main>{props.children}</main>
+        <main className="app-main">
+          <div className="content-wrapper">{props.children}</div>
+        </main>
         <Footer />
       </div>
     </Modal.Provider>

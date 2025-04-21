@@ -1,0 +1,147 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.welcome-section {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  .welcome-message {
+    font-size: 1.2rem;
+    color: #555;
+
+    .user-name {
+      font-weight: 600;
+      color: #4285f4;
+    }
+
+    a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.info-section {
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #4285f4;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 0;
+    color: #666;
+  }
+}
+
+.action-section {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &.primary {
+    background-color: #4285f4;
+    color: white;
+
+    &:hover {
+      background-color: #3367d6;
+    }
+  }
+
+  &.secondary {
+    background-color: white;
+    color: #4285f4;
+    border: 2px solid #4285f4;
+
+    &:hover {
+      background-color: rgba(66, 133, 244, 0.1);
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .welcome-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .info-section h2,
+  .action-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}

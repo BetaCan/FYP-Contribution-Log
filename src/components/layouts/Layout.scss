@@ -1,23 +1,45 @@
-/* --------------------------------------------------------------------------------------- */
-/* Styling /////////////////////////////////////////////////////////////////////////////// */
-/* --------------------------------------------------------------------------------------- */
+/* Main Layout Styles */
 
-div#root {
-  background: white;
-  min-height: 100vh;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.5;
+}
+
+.app-layout {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-div#root div.centrepane {
-  background: whiteSmoke;
-  width: 100%;
-
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
+.app-main {
+  flex: 1;
+  background-color: #f0f2f5;
 }
 
-div#root div.centrepane > main {
-  padding: 30px;
-  width: 100%;
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
