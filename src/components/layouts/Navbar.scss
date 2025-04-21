@@ -1,4 +1,4 @@
-@import "../Styles/colors";
+@import '../Styles/colors';
 
 /* --------------------------------------------------------------------------------------- */
 /* Styling /////////////////////////////////////////////////////////////////////////////// */
@@ -12,6 +12,8 @@ nav {
 
 .navItem.signIn {
   margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 nav div.navItem {
@@ -29,4 +31,29 @@ nav div.navItem a {
 
 nav div.navItem a.navSelected {
   color: $windows-blue;
+}
+
+/* User Info in Navbar */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userName {
+  font-weight: 500;
+}
+
+.logoutButton {
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 90%;
+}
+
+.logoutButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.4);
 }
