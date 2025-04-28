@@ -40,8 +40,8 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
   const conformance = {
     js2html: {
       ProjectName: (name) => name,
-      ProjectStartDate: (date) => date.toISOString().slice(0, 10),
-      ProjectEndDate: (date) => date.toISOString().slice(0, 10),
+      ProjectStartDate: (date) => date instanceof Date && !isNaN(date.getTime()),
+      ProjectEndDate: (date) => date instanceof Date && !isNaN(date.getTime()),
       Project_ProjectStatusID: (id) => (id === null ? '' : id),
       ProjectDescription: (description) => description,
       Project_ProjectOverseerID: (id) => (id === null ? '' : id),
@@ -120,7 +120,7 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
         <input
           type="date"
           name="ProjectStartDate"
-          value={project.ProjectStartDate.toISOString().slice(0, 10)}
+          value={conformance.js2html.ProjectStartDate(project.ProjectStartDate)}
           onChange={handleChange}
         />
       </Form.Item>
@@ -134,7 +134,7 @@ export default function ProjectForm({onCancel, onSubmit, initialProject = emptyP
         <input
           type="date"
           name="ProjectEndDate"
-          value={project.ProjectEndDate.toISOString().slice(0, 10)}
+          value={conformance.js2html.ProjectEndDate(project.ProjectEndDate)}
           onChange={handleChange}
         />
       </Form.Item>
