@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from 'react'
 import {Container, TextField, Button, Box, Typography} from '@mui/material'
 import API from '../../api/API'
 import UserContext from '../../../context/UserContext'
+import {useNavigate} from 'react-router-dom'
 
 function SignInPage() {
   // State
@@ -11,6 +12,7 @@ function SignInPage() {
   const [selectedRole, setSelectedRole] = useState('')
   const [loadingMessage, setLoadingMessage] = useState('Loading users...')
   const {setLoggedInUser} = useContext(UserContext)
+  const navigate = useNavigate()
 
   // Available roles
   const roles = ['All', 'Admin', 'Professor', 'Project Manager', 'Student', 'User']
@@ -64,6 +66,8 @@ function SignInPage() {
       console.log(
         `Logged in as ${selectedUser.UserFirstName} ${selectedUser.UserLastName} (${selectedUser.Role})`
       )
+      // Redirect to home or dashboard after login
+      navigate('/')
     }
   }
 
