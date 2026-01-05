@@ -283,4 +283,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ for Final Year Project collaboration and management**
+**Built for Final Year Project collaboration and management**
